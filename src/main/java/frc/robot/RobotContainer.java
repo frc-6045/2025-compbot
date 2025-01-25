@@ -74,8 +74,20 @@ public class RobotContainer {
     //m_driverController.rightTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_driverController));
     //m_driverController.leftTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_driverController));
     
-   //m_operatorController.b().onTrue(new InstantCommand(() -> {System.out.println(m_ArmSubsystem.getAbsoluteEncoderPosition());}));
+    m_operatorController.b().onTrue(new InstantCommand(() -> {System.out.println(m_ArmSubsystem.getAbsoluteEncoderPosition()); System.out.println(m_ElevatorSubsystem.getAbsoluteEncoderPosition());}));
     m_operatorController.a().onTrue(new StopPIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem)); // stop PID arm
+
+    // SETPOINTS FOR OPERATOR
+
+    // Left Stick Forward -- L4
+    // Left Stick Left -- L1
+    // Left Stick Right -- L2
+    // Left Stick Down -- L3
+    // Right Stick Up -- L4 mirrored
+    // Right Stick Left -- L1 mirrored
+    // Right Stick Right -- L2 mirrored
+    // Right Stick Down -- L3 mirrored
+    // Coral Station -- B
 
     // setpoints (y: home, b: human)2   
     //m_operatorController.y().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHomeArmPosition, m_ElevatorSubsystem, PositionConstants.kHomeElevatorPosition));
@@ -86,14 +98,10 @@ public class RobotContainer {
     m_operatorController.pov(270).whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
     
 
-    m_operatorController.pov(45).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, true, m_operatorController);
-                                                                          new ElevatorCommand(m_ElevatorSubsystem, true);}));
-    m_operatorController.pov(135).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, true, m_operatorController);
-                                                                          new ElevatorCommand(m_ElevatorSubsystem, false);}));
-    m_operatorController.pov(225).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, false, m_operatorController);
-                                                                          new ElevatorCommand(m_ElevatorSubsystem, false);}));
-    m_operatorController.pov(315).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, false, m_operatorController);
-                                                                          new ElevatorCommand(m_ElevatorSubsystem, true);}));
+    //m_operatorController.pov(45).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, true, m_operatorController); new ElevatorCommand(m_ElevatorSubsystem, true);}));
+    //m_operatorController.pov(135).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, true, m_operatorController); new ElevatorCommand(m_ElevatorSubsystem, false);}));
+    //m_operatorController.pov(225).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, false, m_operatorController); new ElevatorCommand(m_ElevatorSubsystem, false);}));
+    //m_operatorController.pov(315).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, false, m_operatorController); new ElevatorCommand(m_ElevatorSubsystem, true);}));
     // d pad controls elevator
     m_operatorController.pov(0).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
     m_operatorController.pov(180).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
