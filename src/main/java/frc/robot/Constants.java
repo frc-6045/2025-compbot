@@ -57,7 +57,7 @@ public final class Constants {
     public static final double kHomeArmPosition = 0;
     public static final double kHomeElevatorPosition = 0;
 
-    // Human player intake setpoint
+    // Human player/coral intake setpoint
     public static final double kHumanArmPosition = 0;
     public static final double kHumanElevatorPosition = 0;
 

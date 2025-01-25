@@ -74,23 +74,22 @@ public class RobotContainer {
     //m_driverController.rightTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_driverController));
     //m_driverController.leftTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_driverController));
     
-    m_operatorController.b().onTrue(new InstantCommand(() -> {System.out.println(m_ArmSubsystem.getAbsoluteEncoderPosition()); System.out.println(m_ElevatorSubsystem.getAbsoluteEncoderPosition());}));
-    m_operatorController.a().onTrue(new StopPIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem)); // stop PID arm
+    m_operatorController.b().onTrue(new InstantCommand(() -> {System.out.println("arm encoder value: " + m_ArmSubsystem.getAbsoluteEncoderPosition()); System.out.println("\nelev encoder value: " + m_ElevatorSubsystem.getAbsoluteEncoderPosition());}));
+    m_operatorController.a().onTrue(new StopPIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem)); // stop PID arm and elevator
 
     // SETPOINTS FOR OPERATOR
 
-    // Left Stick Forward -- L4
+    // Left Stick Forward -- L4 0.4926341772079468, 90.54869079589844
     // Left Stick Left -- L1
     // Left Stick Right -- L2
-    // Left Stick Down -- L3
+    // Left Stick Down -- L3 0.5346248745918274, -10.762974739074707
     // Right Stick Up -- L4 mirrored
     // Right Stick Left -- L1 mirrored
     // Right Stick Right -- L2 mirrored
     // Right Stick Down -- L3 mirrored
     // Coral Station -- B
 
-    // setpoints (y: home, b: human)2   
-    //m_operatorController.y().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHomeArmPosition, m_ElevatorSubsystem, PositionConstants.kHomeElevatorPosition));
+    // CORAL STATION
     //m_operatorController.b().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHumanArmPosition, m_ElevatorSubsystem, PositionConstants.kHumanElevatorPosition));
 //Quinn's Crap
 
