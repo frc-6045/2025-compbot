@@ -77,6 +77,18 @@ public class RobotContainer {
    //m_operatorController.b().onTrue(new InstantCommand(() -> {System.out.println(m_ArmSubsystem.getAbsoluteEncoderPosition());}));
     m_operatorController.a().onTrue(new StopPIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem)); // stop PID arm
 
+    // SETPOINTS FOR OPERATOR
+
+    // Left Stick Forward -- L4
+    // Left Stick Left -- L1
+    // Left Stick Right -- L2
+    // Left Stick Down -- L3
+    // Right Stick Up -- L4 mirrored
+    // Right Stick Left -- L1 mirrored
+    // Right Stick Right -- L2 mirrored
+    // Right Stick Down -- L3 mirrored
+    // Coral Station -- B
+
     // setpoints (y: home, b: human)2   
     //m_operatorController.y().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHomeArmPosition, m_ElevatorSubsystem, PositionConstants.kHomeElevatorPosition));
     //m_operatorController.b().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHumanArmPosition, m_ElevatorSubsystem, PositionConstants.kHumanElevatorPosition));
