@@ -66,9 +66,6 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Gyro Heading Reset
-    m_driverController.start().onTrue(new InstantCommand(() -> {m_DriveSubsystem.zeroHeading();}, m_DriveSubsystem));
-
     // operator triggers control coral intake
     m_operatorController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
     m_operatorController.rightTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
