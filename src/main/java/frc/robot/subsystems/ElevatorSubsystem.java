@@ -14,7 +14,7 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorConstants;
@@ -23,6 +23,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final SparkFlex m_ElevatorMotor1;
     private final SparkFlex m_ElevatorMotor2;
     private final RelativeEncoder m_RelativeEncoder;
+    private final DigitalInput topLimitSwitch;
+    private final DigitalInput bottomLimitSwitch;
     SparkFlexConfig config = new SparkFlexConfig();
 
   /** Creates a new ExampleSubsystem. */
@@ -32,6 +34,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     updateMotorSettings(m_ElevatorMotor1);
     updateMotorSettings(m_ElevatorMotor2);
     m_RelativeEncoder = m_ElevatorMotor1.getEncoder();
+    topLimitSwitch = new DigitalInput(0);
+    bottomLimitSwitch = new DigitalInput(1);
 
   }
 
@@ -47,6 +51,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   public void setSpeed(double speed) {
     if (speed>MotorConstants.kSparkFlexElevatorMotorsMaxSpeed)
       speed = MotorConstants.kSparkFlexElevatorMotorsMaxSpeed;
+      
+    speed = (topLimitSwitch.get() && speed > 0) ? 0 : speed;
+    speed = (bottomLimitSwitch.get() && speed < 0) ? 0 : speed;
+    if (bottomLimitSwitch.get()) zeroEncoder();
+
     m_ElevatorMotor1.set(speed);
     m_ElevatorMotor2.set(-speed);
   }
@@ -60,13 +69,17 @@ public class ElevatorSubsystem extends SubsystemBase {
     return m_RelativeEncoder;
   }
 
-  public double getAbsoluteEncoderPosition() {
+  public double getRelativeEncoderPosition() {
     return m_RelativeEncoder.getPosition();
+  }
+
+  public void zeroEncoder() {
+    m_RelativeEncoder.setPosition(0);
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Elevator", getAbsoluteEncoderPosition());
+    SmartDashboard.putNumber("Elevator", getRelativeEncoderPosition());
   }
 
   @Override

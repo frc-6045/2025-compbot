@@ -23,10 +23,10 @@ public class PIDElevatorCommand extends Command {
     public void execute() {
         //double feedforward = 0.01;
         //if (m_ArmMotor.getAbsoluteEncoderPosition()-setPoint<0.01 && m_ArmMotor.getAbsoluteEncoderPosition()-setPoint>-0.01) m_ArmMotor.stopArmMotor();;;
-        double speed = -m_ElevatorPIDController.calculate(m_ElevatorSubsystem.getAbsoluteEncoderPosition(), setPoint);
+        double speed = -m_ElevatorPIDController.calculate(m_ElevatorSubsystem.getRelativeEncoderPosition(), setPoint);
         //speed = (speed>0) ? speed + feedforward : speed-feedforward;
         m_ElevatorSubsystem.setSpeed(speed);
-        System.out.println("PIDElevator output (speed): " + speed + "\nset point: " + m_ElevatorPIDController.getSetpoint() + "\ncurrent position: " + m_ElevatorSubsystem.getAbsoluteEncoderPosition());
+        System.out.println("PIDElevator output (speed): " + speed + "\nset point: " + m_ElevatorPIDController.getSetpoint() + "\ncurrent position: " + m_ElevatorSubsystem.getRelativeEncoderPosition());
     }
 
     @Override

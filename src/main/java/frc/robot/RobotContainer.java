@@ -77,7 +77,7 @@ public class RobotContainer {
     //m_driverController.rightTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_driverController));
     //m_driverController.leftTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_driverController));
     
-    m_operatorController.b().onTrue(new InstantCommand(() -> {System.out.println("arm encoder value: " + m_ArmSubsystem.getAbsoluteEncoderPosition()); System.out.println("\nelev encoder value: " + m_ElevatorSubsystem.getAbsoluteEncoderPosition());}));
+    m_operatorController.b().onTrue(new InstantCommand(() -> {System.out.println("arm encoder value: " + m_ArmSubsystem.getAbsoluteEncoderPosition()); System.out.println("\nelev encoder value: " + m_ElevatorSubsystem.getRelativeEncoderPosition());}));
     m_operatorController.a().onTrue(new StopPIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem)); // stop PID arm and elevator
 
     // SETPOINTS FOR OPERATOR

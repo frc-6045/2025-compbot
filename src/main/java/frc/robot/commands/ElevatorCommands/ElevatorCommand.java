@@ -24,7 +24,7 @@ public class ElevatorCommand extends Command {
   @Override
   public void execute() {
     double speed = MotorConstants.kSparkFlexElevatorMotorsSpeed;
-    System.out.println("ELEVATOR " + m_elevatorSubsystem.getAbsoluteEncoderPosition());
+    System.out.println("ELEVATOR " + m_elevatorSubsystem.getRelativeEncoderPosition());
     if (goUp) {
         m_elevatorSubsystem.setSpeed(speed);
     } else {
