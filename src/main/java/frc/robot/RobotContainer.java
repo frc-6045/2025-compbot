@@ -86,6 +86,7 @@ public class RobotContainer {
     // Left Stick Left -- L1
     // Left Stick Right -- L2
     // Left Stick Down -- L3 0.5346248745918274, -10.762974739074707
+    // We actually should not need the mirrored maps -- we should be able to use the gyro or the positon of the arm to know which way we are facing and need to score
     // Right Stick Up -- L4 mirrored
     // Right Stick Left -- L1 mirrored
     // Right Stick Right -- L2 mirrored
@@ -96,8 +97,11 @@ public class RobotContainer {
     //m_operatorController.b().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHumanArmPosition, m_ElevatorSubsystem, PositionConstants.kHumanElevatorPosition));
 //Quinn's Crap
 
-    m_operatorController.pov(90).whileTrue(new ArmCommand(m_ArmSubsystem, true, m_operatorController));
-    m_operatorController.pov(270).whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
+    //Grant Changed this to be on bumpers instead of dpad
+    m_operatorController.rightBumper().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_operatorController));
+    m_operatorController.leftBumper().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
+    //m_operatorController.pov(90).whileTrue(new ArmCommand(m_ArmSubsystem, true, m_operatorController));
+    //m_operatorController.pov(270).whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
     
 
     //m_operatorController.pov(45).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, true, m_operatorController); new ElevatorCommand(m_ElevatorSubsystem, true);}));
@@ -105,8 +109,12 @@ public class RobotContainer {
     //m_operatorController.pov(225).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, false, m_operatorController); new ElevatorCommand(m_ElevatorSubsystem, false);}));
     //m_operatorController.pov(315).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, false, m_operatorController); new ElevatorCommand(m_ElevatorSubsystem, true);}));
     // d pad controls elevator
-    m_operatorController.pov(0).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
-    m_operatorController.pov(180).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
+
+    //Grant Changed this to be on x/y instead of dpad
+    // m_operatorController.pov(0).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
+    // m_operatorController.pov(180).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
+    m_operatorController.x().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
+    m_operatorController.y().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
       
     // paddles will have setpoints 1-8
 
