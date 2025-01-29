@@ -98,8 +98,8 @@ public class RobotContainer {
 //Quinn's Crap
 
     //Grant Changed this to be on bumpers instead of dpad
-    m_operatorController.rightBumper().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_operatorController));
-    m_operatorController.leftBumper().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
+//    m_operatorController.rightBumper().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_operatorController));
+//    m_operatorController.leftBumper().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
     //m_operatorController.pov(90).whileTrue(new ArmCommand(m_ArmSubsystem, true, m_operatorController));
     //m_operatorController.pov(270).whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
     
