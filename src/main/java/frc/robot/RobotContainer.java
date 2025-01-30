@@ -113,8 +113,8 @@ public class RobotContainer {
     //Grant Changed this to be on x/y instead of dpad
     // m_operatorController.pov(0).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
     // m_operatorController.pov(180).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
-    m_operatorController.x().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
-    m_operatorController.y().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
+    m_operatorController.y().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
+    m_operatorController.a().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
       
     // paddles will have setpoints 1-8
 
