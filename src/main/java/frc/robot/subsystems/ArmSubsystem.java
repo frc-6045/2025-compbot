@@ -43,7 +43,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    if (speed>MotorConstants.kSparkFlexArmMotorMaxSpeed)
+    if (speed>MotorConstants.kSparkFlexArmMotorMaxSpeed || speed<-MotorConstants.kSparkFlexArmMotorMaxSpeed)
       speed = MotorConstants.kSparkFlexArmMotorMaxSpeed;
     m_ArmMotor.set(speed);
   }

@@ -29,8 +29,8 @@ public class IntakeSubsystem extends SubsystemBase {
         motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }   
     public void setSpeed(double speed, double runMotor1, double runMotor2) {
-        if (speed>MotorConstants.kSparkFlexElevatorMotorsMaxSpeed)
-          speed = MotorConstants.kSparkFlexElevatorMotorsMaxSpeed;
+        if (speed>MotorConstants.kIntakeMotorsMaxSpeed || speed<-MotorConstants.kIntakeMotorsMaxSpeed)
+          speed = MotorConstants.kIntakeMotorsMaxSpeed;
         m_IntakeMotor1.set(speed*runMotor1);
         m_IntakeMotor2.set(speed*runMotor2);
     }
