@@ -12,5 +12,6 @@ public class PIDArmAndElevator extends ParallelCommandGroup {
             new PIDArmCommand(armSubsystem, armSetPoint),
             new PIDElevatorCommand(elevatorSubsystem, elevatorSetPoint)
         );
+        System.out.println("a");
     }
 }

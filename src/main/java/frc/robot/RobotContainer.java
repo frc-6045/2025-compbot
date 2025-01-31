@@ -69,9 +69,11 @@ public class RobotContainer {
     // Gyro Heading Reset
     m_driverController.start().onTrue(new InstantCommand(() -> {m_DriveSubsystem.zeroHeading();}, m_DriveSubsystem));
 
-    // operator triggers control coral intake
+    // operator or driver triggers control coral intake
     m_operatorController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
     m_operatorController.rightTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
+    m_driverController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_driverController));
+    m_driverController.rightTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_driverController));
 
     // arm
     //m_driverController.rightTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_driverController));
@@ -93,28 +95,22 @@ public class RobotContainer {
     // Right Stick Down -- L3 mirrored
     // Coral Station -- B
 
-    // CORAL STATION
-    //m_operatorController.b().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHumanArmPosition, m_ElevatorSubsystem, PositionConstants.kHumanElevatorPosition));
-//Quinn's Crap
+    m_operatorController.y().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.32972583174705505, m_ElevatorSubsystem, 14));
+
+    //Quinn's Crap
 
     //Grant Changed this to be on bumpers instead of dpad
-//    m_operatorController.rightBumper().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_operatorController));
-//    m_operatorController.leftBumper().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
+    m_operatorController.rightBumper().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_operatorController));
+    m_operatorController.leftBumper().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
     //m_operatorController.pov(90).whileTrue(new ArmCommand(m_ArmSubsystem, true, m_operatorController));
     //m_operatorController.pov(270).whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
     
-
-    //m_operatorController.pov(45).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, true, m_operatorController); new ElevatorCommand(m_ElevatorSubsystem, true);}));
-    //m_operatorController.pov(135).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, true, m_operatorController); new ElevatorCommand(m_ElevatorSubsystem, false);}));
-    //m_operatorController.pov(225).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, false, m_operatorController); new ElevatorCommand(m_ElevatorSubsystem, false);}));
-    //m_operatorController.pov(315).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, false, m_operatorController); new ElevatorCommand(m_ElevatorSubsystem, true);}));
     // d pad controls elevator
-
     //Grant Changed this to be on x/y instead of dpad
-    // m_operatorController.pov(0).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
-    // m_operatorController.pov(180).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
-    m_operatorController.y().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
-    m_operatorController.a().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
+    m_operatorController.pov(0).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
+    m_operatorController.pov(180).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
+    //m_operatorController.y().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
+    //m_operatorController.a().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
       
     // paddles will have setpoints 1-8
 

@@ -49,11 +49,12 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    speed = (speed < MotorConstants.kSparkFlexElevatorMotorsMaxSpeed && speed > -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? speed : 0;
-    
+    speed = (speed > MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? MotorConstants.kSparkFlexElevatorMotorsMaxSpeed : speed;
+    speed = (speed < -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed : speed;
+    //System.out.println("speed: " + speed);
     speed = ((!topLimitSwitch.get() && speed > 0) || (!bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
 
-    //System.out.println(bottomLimitSwitch.get() + " "  + topLimitSwitch.get());
+    //System.out.println("speed: " + speed + "\n" + bottomLimitSwitch.get() + " "  + topLimitSwitch.get());
 
     m_ElevatorMotor1.set(speed);
     m_ElevatorMotor2.set(-speed);
@@ -69,11 +70,13 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public double getRelativeEncoderPosition() {
+    //System.out.println("position is " + m_RelativeEncoder.getPosition());
     return m_RelativeEncoder.getPosition();
   }
 
   public void zeroEncoder() {
     m_RelativeEncoder.setPosition(0);
+    System.out.println("zero elevator encoder!!");
   }
 
   @Override
