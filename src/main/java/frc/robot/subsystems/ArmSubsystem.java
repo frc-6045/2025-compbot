@@ -14,6 +14,9 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,17 +27,20 @@ public class ArmSubsystem extends SubsystemBase {
   private final SparkFlex m_ArmMotor;
   private final AbsoluteEncoder m_AbsoluteEncoder;
   SparkFlexConfig config = new SparkFlexConfig();
+  private final ArmFeedforward m_ArmFeedforward = new ArmFeedforward(0, 0, 0);
+  PIDController m_ArmPIDController = new PIDController(4, 0, 0);
 
   /** Creates a new ExampleSubsystem. */
   public ArmSubsystem() {
     m_ArmMotor = new SparkFlex(MotorConstants.kSparkFlexArmMotorCANID, MotorType.kBrushless);
-    //m_AbsoluteEncoder = new DutyCycleEncoder(9);
-    updateMotorSettingsForTest(m_ArmMotor);
-    m_ArmMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     m_AbsoluteEncoder = m_ArmMotor.getAbsoluteEncoder();
+    m_ArmPIDController.enableContinuousInput(0, 1);
+
+    updateMotorSettings(m_ArmMotor);
+    m_ArmMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
-   public void updateMotorSettingsForTest(SparkFlex motor) {
+   public void updateMotorSettings(SparkFlex motor) {
     config
         .idleMode(IdleMode.kBrake)
         .smartCurrentLimit(MotorConstants.kIntakeMotorsCurrentLimit);
@@ -42,9 +48,23 @@ public class ArmSubsystem extends SubsystemBase {
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
   }
 
+  //public void hold(TrapezoidProfile.State setpoint) {
+  //  double feedforward = m_ArmFeedforward.calculate(setpoint.position*2*Math.PI, setpoint.velocity);
+  //  goToSetpoint(setpoint.position);
+  //}
+
+  public void goToSetpoint(double setpoint) {
+    double speed = m_ArmPIDController.calculate(getAbsoluteEncoderPosition(), setpoint);
+    //speed = (speed>0) ? speed + feedforward : speed-feedforward;
+    setSpeed(speed);
+    System.out.println("PIDArm output (speed): " + speed + "\nset point: " + m_ArmPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
+  }
+
   public void setSpeed(double speed) {
-    if (speed>MotorConstants.kSparkFlexArmMotorMaxSpeed || speed<-MotorConstants.kSparkFlexArmMotorMaxSpeed)
+    if (speed>MotorConstants.kSparkFlexArmMotorMaxSpeed)
       speed = MotorConstants.kSparkFlexArmMotorMaxSpeed;
+    if (speed<-MotorConstants.kSparkFlexArmMotorMaxSpeed)
+      speed = -MotorConstants.kSparkFlexArmMotorMaxSpeed;
     m_ArmMotor.set(speed);
   }
 
