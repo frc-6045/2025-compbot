@@ -18,6 +18,7 @@ import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.StopPIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmCommand;
+import frc.robot.commands.ArmCommands.HoldArm;
 import frc.robot.commands.ArmCommands.PIDArmCommand;
 import frc.robot.commands.ArmCommands.StopPIDArmCommand;
 import frc.robot.commands.ElevatorCommands.ElevatorCommand;
@@ -54,6 +55,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
   }
 
   /**

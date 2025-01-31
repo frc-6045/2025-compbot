@@ -57,7 +57,7 @@ public class ArmSubsystem extends SubsystemBase {
     double speed = m_ArmPIDController.calculate(getAbsoluteEncoderPosition(), setpoint);
     //speed = (speed>0) ? speed + feedforward : speed-feedforward;
     setSpeed(speed);
-    System.out.println("PIDArm output (speed): " + speed + "\nset point: " + m_ArmPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
+    //System.out.println("PIDArm output (speed): " + speed + "\nset point: " + m_ArmPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
   }
 
   public void setSpeed(double speed) {
