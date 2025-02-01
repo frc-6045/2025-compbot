@@ -19,14 +19,14 @@ public class IntakeCommand extends Command {
     public void execute() {
         double speed = MotorConstants.kIntakeMotorsSpeed;
         double triggerAxis = controller.getLeftTriggerAxis()-controller.getRightTriggerAxis();
-        m_IntakeSubsystem.setSpeed(speed, triggerAxis, triggerAxis);
+        m_IntakeSubsystem.setSpeed(speed, triggerAxis, controller.getRightX() > .10 ? 0.0: triggerAxis); //Grant's Ternary. Press right on stick and it won't run second rollers. Should be a button but I couldn't figure out how to return bool from a button if its pressed or not :)
         System.out.println("INTAKE speed: " + speed + "\nbumperPressed: " + triggerAxis + "\ntriggerAxis: " + triggerAxis);
     }
 
     @Override
     public void end(boolean interrupted) {
         System.out.println("BUMPERPRESSED TO 0");
-        m_IntakeSubsystem.setSpeed(0, 0, 0);
+        m_IntakeSubsystem.setSpeed(0, 0, 0);    
     }
 
 }

@@ -14,7 +14,8 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorConstants;
@@ -23,6 +24,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final SparkFlex m_ElevatorMotor1;
     private final SparkFlex m_ElevatorMotor2;
     private final RelativeEncoder m_RelativeEncoder;
+    private final DigitalInput topLimitSwitch;
+    private final DigitalInput bottomLimitSwitch;
+    private PIDController m_ElevatorPIDController;
     SparkFlexConfig config = new SparkFlexConfig();
 
   /** Creates a new ExampleSubsystem. */
@@ -32,6 +36,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     updateMotorSettings(m_ElevatorMotor1);
     updateMotorSettings(m_ElevatorMotor2);
     m_RelativeEncoder = m_ElevatorMotor1.getEncoder();
+    topLimitSwitch = new DigitalInput(1);
+    bottomLimitSwitch = new DigitalInput(0);
+
+    m_ElevatorPIDController = new PIDController(0.03, 0, 0);
+    //m_ElevatorPIDController.enableContinuousInput(0, 1);
+    //m_ArmPIDController.setTolerance(0.0038);
 
   }
 
@@ -44,9 +54,23 @@ public class ElevatorSubsystem extends SubsystemBase {
     motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
+  public void goToSetpoint(double setpoint) {
+    //double feedforward = 0.01;
+        //if (m_ArmMotor.getAbsoluteEncoderPosition()-setPoint<0.01 && m_ArmMotor.getAbsoluteEncoderPosition()-setPoint>-0.01) m_ArmMotor.stopArmMotor();;;
+        double speed = m_ElevatorPIDController.calculate(getRelativeEncoderPosition(), setpoint);
+        //speed = (speed>0) ? speed + feedforward : speed-feedforward;
+        setSpeed(speed);
+        System.out.println("PIDElevator output (speed): " + speed + "\nset point: " + m_ElevatorPIDController.getSetpoint() + "\ncurrent position: " + getRelativeEncoderPosition());
+  }
+
   public void setSpeed(double speed) {
-    if (speed>MotorConstants.kSparkFlexElevatorMotorsMaxSpeed)
-      speed = MotorConstants.kSparkFlexElevatorMotorsMaxSpeed;
+    speed = (speed > MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? MotorConstants.kSparkFlexElevatorMotorsMaxSpeed : speed;
+    speed = (speed < -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed : speed;
+    //System.out.println("speed: " + speed);
+    speed = ((!topLimitSwitch.get() && speed > 0) || (!bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
+    if (!bottomLimitSwitch.get()) {zeroEncoder();}
+    //System.out.println("speed: " + speed + "\n" + bottomLimitSwitch.get() + " "  + topLimitSwitch.get());
+
     m_ElevatorMotor1.set(speed);
     m_ElevatorMotor2.set(-speed);
   }
@@ -60,13 +84,19 @@ public class ElevatorSubsystem extends SubsystemBase {
     return m_RelativeEncoder;
   }
 
-  public double getAbsoluteEncoderPosition() {
+  public double getRelativeEncoderPosition() {
+    //System.out.println("position is " + m_RelativeEncoder.getPosition());
     return m_RelativeEncoder.getPosition();
+  }
+
+  public void zeroEncoder() {
+    m_RelativeEncoder.setPosition(0);
+    System.out.println("zero elevator encoder!!");
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Elevator", getAbsoluteEncoderPosition());
+    SmartDashboard.putNumber("Elevator", getRelativeEncoderPosition());
   }
 
   @Override

@@ -18,6 +18,7 @@ import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.StopPIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmCommand;
+import frc.robot.commands.ArmCommands.HoldArm;
 import frc.robot.commands.ArmCommands.PIDArmCommand;
 import frc.robot.commands.ArmCommands.StopPIDArmCommand;
 import frc.robot.commands.ElevatorCommands.ElevatorCommand;
@@ -38,14 +39,14 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  public final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
-  public final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
+  public static final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
+  public static final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
   public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   public static int BumperPressed = 0;
   public final DriveSubsystem m_DriveSubsystem = new DriveSubsystem();
 
   // define controllers
-  private final CommandXboxController m_operatorController =
+  private static final CommandXboxController m_operatorController =
       new CommandXboxController(OperatorConstants.kOperatorControllerPort);
   private final CommandXboxController m_driverController = 
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
@@ -54,6 +55,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
   }
 
   /**
@@ -65,38 +67,71 @@ public class RobotContainer {
    * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
+
+  public static void buttonStuff() {
+    if (m_operatorController.getLeftY() == -1) new RunCommand(()->{new PIDArmAndElevator(m_ArmSubsystem, 0.25360676646232605, m_ElevatorSubsystem, 0);});
+    if (m_operatorController.getLeftY() == 1) new PIDArmAndElevator(m_ArmSubsystem, 0.5, m_ElevatorSubsystem, 0);
+    if (m_operatorController.getLeftX() == -1) new PIDArmAndElevator(m_ArmSubsystem, 0.967854917049408, m_ElevatorSubsystem, 0);
+    if (m_operatorController.getLeftX() == 1) new PIDArmAndElevator(m_ArmSubsystem, 0.9316917657852173, m_ElevatorSubsystem, 98.78194427490234);
+  } 
   private void configureBindings() {
-    // operator triggers control coral intake
+    // Gyro Heading Reset
+    m_driverController.start().onTrue(new InstantCommand(() -> {m_DriveSubsystem.zeroHeading();}, m_DriveSubsystem));
+
+    // operator or driver triggers control coral intake
     m_operatorController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
     m_operatorController.rightTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
+    //m_driverController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_driverController));
+    //m_driverController.rightTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_driverController));
 
     // arm
     //m_driverController.rightTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_driverController));
     //m_driverController.leftTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_driverController));
     
-   //m_operatorController.b().onTrue(new InstantCommand(() -> {System.out.println(m_ArmSubsystem.getAbsoluteEncoderPosition());}));
-    m_operatorController.a().onTrue(new StopPIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem)); // stop PID arm
+    m_operatorController.b().onTrue(new InstantCommand(() -> {System.out.println("\narm encoder value: " + m_ArmSubsystem.getAbsoluteEncoderPosition()); System.out.println("elev encoder value: " + m_ElevatorSubsystem.getRelativeEncoderPosition());}));
+    m_operatorController.x().onTrue(new StopPIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem)); // stop PID arm and elevator
 
-    // setpoints (y: home, b: human)2   
-    //m_operatorController.y().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHomeArmPosition, m_ElevatorSubsystem, PositionConstants.kHomeElevatorPosition));
-    //m_operatorController.b().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHumanArmPosition, m_ElevatorSubsystem, PositionConstants.kHumanElevatorPosition));
-//Quinn's Crap
+    // SETPOINTS FOR OPERATOR
 
-    m_operatorController.pov(90).whileTrue(new ArmCommand(m_ArmSubsystem, true, m_operatorController));
-    m_operatorController.pov(270).whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
+    // Left Stick Forward -- L4  0.9316917657852173, 98.78194427490234 (max)
+    // Left Stick Left -- L1 0.25360676646232605, 0
+    // Left Stick Right -- L2 11111111122333131313131313113133
+    // Left Stick Down -- L3 0.967854917049408, 0
+    // Coral Station -- A 0.4507419764995575, 47.08803176879883
+
+    m_operatorController.y().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.32972583174705505, m_ElevatorSubsystem, 14));
+    //m_operatorController.leftStick().whileTrue(new InstantCommand(() -> { System.out.println(m_operatorController.getLeftY());
+    //  if (m_operatorController.getLeftY() == -1) System.out.println("hi"); //new PIDArmAndElevator(m_ArmSubsystem, 0.25360676646232605, m_ElevatorSubsystem, 0);
+    //  if (m_operatorController.getLeftY() == 1) new PIDArmAndElevator(m_ArmSubsystem, 0.5, m_ElevatorSubsystem, 0);
+    //  if (m_operatorController.getLeftX() == -1) new PIDArmAndElevator(m_ArmSubsystem, 0.967854917049408, m_ElevatorSubsystem, 0);
+    //  if (m_operatorController.getLeftX() == 1) new PIDArmAndElevator(m_ArmSubsystem, 0.9316917657852173, m_ElevatorSubsystem, 98.78194427490234);
+    //}));
+
+    m_operatorController.a().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.4507056772708893, m_ElevatorSubsystem, 44.03850555419922));
+
+    //m_operatorController.leftStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.25360676646232605, m_ElevatorSubsystem, 0));
+    //m_operatorController.pov(270).onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.5, m_ElevatorSubsystem, 0));
     
+  //m_operatorController.rightStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.967854917049408, m_ElevatorSubsystem, 0));
+ // m_operatorController.getLeftY().
+    m_operatorController.leftStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.9521994590759277, m_ElevatorSubsystem, 101.27217864990234));
+    m_operatorController.rightStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.9638405442237854, m_ElevatorSubsystem, 2.305943012237549));
 
-    m_operatorController.pov(45).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, true, m_operatorController);
-                                                                          new ElevatorCommand(m_ElevatorSubsystem, true);}));
-    m_operatorController.pov(135).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, true, m_operatorController);
-                                                                          new ElevatorCommand(m_ElevatorSubsystem, false);}));
-    m_operatorController.pov(225).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, false, m_operatorController);
-                                                                          new ElevatorCommand(m_ElevatorSubsystem, false);}));
-    m_operatorController.pov(315).whileTrue(new InstantCommand(()->{new ArmCommand(m_ArmSubsystem, false, m_operatorController);
-                                                                          new ElevatorCommand(m_ElevatorSubsystem, true);}));
+
+    //Quinn's Crap
+
+    //Grant Changed this to be on bumpers instead of dpad
+    m_driverController.rightTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_driverController));
+    m_driverController.leftTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_driverController));
+    //m_operatorController.pov(90).whileTrue(new ArmCommand(m_ArmSubsystem, true, m_operatorController));
+    //m_operatorController.pov(270).whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
+    
     // d pad controls elevator
+    //Grant Changed this to be on x/y instead of dpad
     m_operatorController.pov(0).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
     m_operatorController.pov(180).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
+    //m_operatorController.y().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
+    //m_operatorController.a().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
       
     // paddles will have setpoints 1-8
 
