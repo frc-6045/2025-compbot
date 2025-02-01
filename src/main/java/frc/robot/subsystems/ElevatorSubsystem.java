@@ -14,6 +14,7 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,6 +26,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     private final RelativeEncoder m_RelativeEncoder;
     private final DigitalInput topLimitSwitch;
     private final DigitalInput bottomLimitSwitch;
+    private PIDController m_ElevatorPIDController;
     SparkFlexConfig config = new SparkFlexConfig();
 
   /** Creates a new ExampleSubsystem. */
@@ -37,6 +39,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     topLimitSwitch = new DigitalInput(1);
     bottomLimitSwitch = new DigitalInput(0);
 
+    m_ElevatorPIDController = new PIDController(0.03, 0, 0);
+    //m_ElevatorPIDController.enableContinuousInput(0, 1);
+    //m_ArmPIDController.setTolerance(0.0038);
+
   }
 
    public void updateMotorSettings(SparkFlex motor) {
@@ -46,6 +52,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     config.closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder);
     motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+  }
+
+  public void goToSetpoint(double setpoint) {
+    //double feedforward = 0.01;
+        //if (m_ArmMotor.getAbsoluteEncoderPosition()-setPoint<0.01 && m_ArmMotor.getAbsoluteEncoderPosition()-setPoint>-0.01) m_ArmMotor.stopArmMotor();;;
+        double speed = m_ElevatorPIDController.calculate(getRelativeEncoderPosition(), setpoint);
+        //speed = (speed>0) ? speed + feedforward : speed-feedforward;
+        setSpeed(speed);
+        System.out.println("PIDElevator output (speed): " + speed + "\nset point: " + m_ElevatorPIDController.getSetpoint() + "\ncurrent position: " + getRelativeEncoderPosition());
   }
 
   public void setSpeed(double speed) {
