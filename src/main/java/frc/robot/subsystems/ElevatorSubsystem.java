@@ -53,7 +53,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     speed = (speed < -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed : speed;
     //System.out.println("speed: " + speed);
     speed = ((!topLimitSwitch.get() && speed > 0) || (!bottomLimitSwitch.get() && speed < 0)) ? 0 : speed;
-
+    if (!bottomLimitSwitch.get()) {zeroEncoder();}
     //System.out.println("speed: " + speed + "\n" + bottomLimitSwitch.get() + " "  + topLimitSwitch.get());
 
     m_ElevatorMotor1.set(speed);
