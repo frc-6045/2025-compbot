@@ -32,8 +32,8 @@ public final class Constants {
     public static final int kSparkFlexElevatorMotor2CANID = 11;
 
     public static final int kSparkFlexElevatorMotorsCurrentLimit = 40;
-    public static final double kSparkFlexElevatorMotorsSpeed = .4;
-    public static final double kSparkFlexElevatorMotorsMaxSpeed = .45;
+    public static final double kSparkFlexElevatorMotorsSpeed = .65;
+    public static final double kSparkFlexElevatorMotorsMaxSpeed = .7;
 
     // intake constants
     public static final int kIntakeMotor1CANID = 12;
@@ -137,12 +137,15 @@ public final class Constants {
 
 
     // Chassis configuration
-    public static final double kTrackWidth = Units.inchesToMeters(24.9375); //22.5 //TODO: find all of this
+    public static final double kTrackWidth = Units.inchesToMeters(28); //22.5     24.9375  //TODO: find all of this
     // Distance between centers of right and left wheels on robot
-    public static final double kWheelBase = Units.inchesToMeters(24.9375); // 26.7
+    public static final double kWheelBase = Units.inchesToMeters(28); // 26.7  24.9375
     // Distance between front and back wheels on robot
-    public static final double radiusMeters = Units.inchesToMeters(17.625); ///.8879 meters preconverted before
+    public static final double radiusMeters = Units.inchesToMeters(19.798); ///.8879 meters preconverted before
     //the distance from the center of the robot to the furthest swerve module
+
+    public static final double kGyroOffsetX = Units.inchesToMeters(-3);
+    public static final double kGyroOffsetY = Units.inchesToMeters(-2);
     
     //front left module
     public static final int kFrontLeftDrivingCanId = 1;

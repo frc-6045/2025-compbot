@@ -42,7 +42,6 @@ public class RobotContainer {
   public static final ArmSubsystem m_ArmSubsystem = new ArmSubsystem();
   public static final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
   public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
-  public static int BumperPressed = 0;
   public final DriveSubsystem m_DriveSubsystem = new DriveSubsystem();
 
   // define controllers
@@ -81,8 +80,8 @@ public class RobotContainer {
     // operator or driver triggers control coral intake
     m_operatorController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
     m_operatorController.rightTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
-    //m_driverController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_driverController));
-    //m_driverController.rightTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_driverController));
+    m_driverController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_driverController));
+    m_driverController.rightTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_driverController));
 
     // arm
     //m_driverController.rightTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_driverController));
@@ -107,7 +106,7 @@ public class RobotContainer {
     //  if (m_operatorController.getLeftX() == 1) new PIDArmAndElevator(m_ArmSubsystem, 0.9316917657852173, m_ElevatorSubsystem, 98.78194427490234);
     //}));
 
-    m_operatorController.a().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.4507056772708893, m_ElevatorSubsystem, 44.03850555419922));
+    m_operatorController.a().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.4262903034687042, m_ElevatorSubsystem, 67.1962890625));
 
     //m_operatorController.leftStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.25360676646232605, m_ElevatorSubsystem, 0));
     //m_operatorController.pov(270).onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.5, m_ElevatorSubsystem, 0));
@@ -115,14 +114,14 @@ public class RobotContainer {
   //m_operatorController.rightStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.967854917049408, m_ElevatorSubsystem, 0));
  // m_operatorController.getLeftY().
     m_operatorController.leftStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.9521994590759277, m_ElevatorSubsystem, 101.27217864990234));
-    m_operatorController.rightStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.9638405442237854, m_ElevatorSubsystem, 2.305943012237549));
+    m_operatorController.rightStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.9638405442237854, m_ElevatorSubsystem, 0));
 
 
     //Quinn's Crap
 
     //Grant Changed this to be on bumpers instead of dpad
-    m_driverController.rightTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_driverController));
-    m_driverController.leftTrigger().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_driverController));
+    m_driverController.rightBumper().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_driverController));
+    m_driverController.leftBumper().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_driverController));
     //m_operatorController.pov(90).whileTrue(new ArmCommand(m_ArmSubsystem, true, m_operatorController));
     //m_operatorController.pov(270).whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
     

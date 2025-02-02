@@ -9,6 +9,7 @@ import frc.robot.RobotContainer;
 public class IntakeCommand extends Command {
     private final IntakeSubsystem m_IntakeSubsystem;
     private final CommandXboxController controller;
+    
     public IntakeCommand(IntakeSubsystem intakeSubsystem, CommandXboxController xboxController) {
         m_IntakeSubsystem = intakeSubsystem;
         controller = xboxController;
@@ -20,12 +21,11 @@ public class IntakeCommand extends Command {
         double speed = MotorConstants.kIntakeMotorsSpeed;
         double triggerAxis = controller.getLeftTriggerAxis()-controller.getRightTriggerAxis();
         m_IntakeSubsystem.setSpeed(speed, triggerAxis, controller.getRightX() > .10 ? 0.0: triggerAxis); //Grant's Ternary. Press right on stick and it won't run second rollers. Should be a button but I couldn't figure out how to return bool from a button if its pressed or not :)
-        System.out.println("INTAKE speed: " + speed + "\nbumperPressed: " + triggerAxis + "\ntriggerAxis: " + triggerAxis);
+        System.out.println("open loop INTAKE speed: " + speed + "\ntriggerAxis: " + triggerAxis);
     }
 
     @Override
     public void end(boolean interrupted) {
-        System.out.println("BUMPERPRESSED TO 0");
         m_IntakeSubsystem.setSpeed(0, 0, 0);    
     }
 
