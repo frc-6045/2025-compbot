@@ -47,6 +47,7 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 1;
     public static final int kOperatorControllerPort = 0;
+    public static final int kGodControllerPort = 2;
     public static double kHomeArmPosition;
   }
 
