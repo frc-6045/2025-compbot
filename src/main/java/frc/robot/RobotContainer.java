@@ -13,7 +13,8 @@ import frc.robot.Constants.PositionConstants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.swerve.DriveSubsystem;
+import frc.robot.subsystems.swerve.SwerveSubsystem;
+import swervelib.SwerveInputStream;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.StopPIDArmAndElevator;
@@ -25,9 +26,12 @@ import frc.robot.commands.ElevatorCommands.ElevatorCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
+import java.io.File;
+
 import javax.swing.text.Position;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 
@@ -43,7 +47,9 @@ public class RobotContainer {
   public static final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
   public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   public static int BumperPressed = 0;
-  public final DriveSubsystem m_DriveSubsystem = new DriveSubsystem();
+  
+  public final SwerveSubsystem m_DriveSubsystem = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
+                                                                                "swerve/neo"));
 
   // define controllers
   private static final CommandXboxController m_operatorController =
@@ -51,10 +57,61 @@ public class RobotContainer {
   private final CommandXboxController m_driverController = 
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
+    /**
+   * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
+   */
+  SwerveInputStream driveAngularVelocity = SwerveInputStream.of(m_DriveSubsystem.getSwerveDrive(),
+                                                                () -> m_driverController.getLeftY() * -1,
+                                                                () -> m_driverController.getLeftX() * -1)
+                                                            .withControllerRotationAxis(m_driverController::getRightX)
+                                                            .deadband(OperatorConstants.DEADBAND)
+                                                            .scaleTranslation(0.8)
+                                                            .allianceRelativeControl(true);
+
+  /**
+   * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
+   */
+  SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_driverController::getRightX,
+                                                                                             m_driverController::getRightY)
+                                                           .headingWhile(true);
+
+  /**
+   * Clone's the angular velocity input stream and converts it to a robotRelative input stream.
+   */
+  SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
+                                                             .allianceRelativeControl(false);
+
+  SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream.of(m_DriveSubsystem.getSwerveDrive(),
+                                                                        () -> -m_driverController.getLeftY(),
+                                                                        () -> -m_driverController.getLeftX())
+                                                                    .withControllerRotationAxis(() -> m_driverController.getRawAxis(
+                                                                        2))
+                                                                    .deadband(OperatorConstants.DEADBAND)
+                                                                    .scaleTranslation(0.8)
+                                                                    .allianceRelativeControl(true);
+  // Derive the heading axis with math!
+  SwerveInputStream driveDirectAngleKeyboard     = driveAngularVelocityKeyboard.copy()
+                                                                               .withControllerHeadingAxis(() ->
+                                                                                                              Math.sin(
+                                                                                                                  m_driverController.getRawAxis(
+                                                                                                                      2) *
+                                                                                                                  Math.PI) *
+                                                                                                              (Math.PI *
+                                                                                                               2),
+                                                                                                          () ->
+                                                                                                              Math.cos(
+                                                                                                                  m_driverController.getRawAxis(
+                                                                                                                      2) *
+                                                                                                                  Math.PI) *
+                                                                                                              (Math.PI *
+                                                                                                               2))
+                                                                               .headingWhile(true);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    configureDrivetrain();
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
   }
 
@@ -68,15 +125,13 @@ public class RobotContainer {
    * joysticks}.
    */
 
-  public static void buttonStuff() {
-    if (m_operatorController.getLeftY() == -1) new RunCommand(()->{new PIDArmAndElevator(m_ArmSubsystem, 0.25360676646232605, m_ElevatorSubsystem, 0);});
-    if (m_operatorController.getLeftY() == 1) new PIDArmAndElevator(m_ArmSubsystem, 0.5, m_ElevatorSubsystem, 0);
-    if (m_operatorController.getLeftX() == -1) new PIDArmAndElevator(m_ArmSubsystem, 0.967854917049408, m_ElevatorSubsystem, 0);
-    if (m_operatorController.getLeftX() == 1) new PIDArmAndElevator(m_ArmSubsystem, 0.9316917657852173, m_ElevatorSubsystem, 98.78194427490234);
-  } 
+  private void configureDrivetrain() {
+
+  }
+
   private void configureBindings() {
     // Gyro Heading Reset
-    m_driverController.start().onTrue(new InstantCommand(() -> {m_DriveSubsystem.zeroHeading();}, m_DriveSubsystem));
+    //m_driverController.start().onTrue(new InstantCommand(() -> {m_DriveSubsystem.zeroHeading();}, m_DriveSubsystem));
 
     // operator or driver triggers control coral intake
     m_operatorController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
@@ -100,12 +155,6 @@ public class RobotContainer {
     // Coral Station -- A 0.4507419764995575, 47.08803176879883
 
     m_operatorController.y().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.32972583174705505, m_ElevatorSubsystem, 14));
-    //m_operatorController.leftStick().whileTrue(new InstantCommand(() -> { System.out.println(m_operatorController.getLeftY());
-    //  if (m_operatorController.getLeftY() == -1) System.out.println("hi"); //new PIDArmAndElevator(m_ArmSubsystem, 0.25360676646232605, m_ElevatorSubsystem, 0);
-    //  if (m_operatorController.getLeftY() == 1) new PIDArmAndElevator(m_ArmSubsystem, 0.5, m_ElevatorSubsystem, 0);
-    //  if (m_operatorController.getLeftX() == -1) new PIDArmAndElevator(m_ArmSubsystem, 0.967854917049408, m_ElevatorSubsystem, 0);
-    //  if (m_operatorController.getLeftX() == 1) new PIDArmAndElevator(m_ArmSubsystem, 0.9316917657852173, m_ElevatorSubsystem, 98.78194427490234);
-    //}));
 
     m_operatorController.a().onTrue(new PIDArmAndElevator(m_ArmSubsystem, 0.4507056772708893, m_ElevatorSubsystem, 44.03850555419922));
 
@@ -127,23 +176,9 @@ public class RobotContainer {
     //m_operatorController.pov(270).whileTrue(new ArmCommand(m_ArmSubsystem, false, m_operatorController));
     
     // d pad controls elevator
-    //Grant Changed this to be on x/y instead of dpad
     m_operatorController.pov(0).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
     m_operatorController.pov(180).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
-    //m_operatorController.y().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
-    //m_operatorController.a().whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
-      
-    // paddles will have setpoints 1-8
 
-    m_DriveSubsystem.setDefaultCommand(
-    new RunCommand(
-          () -> m_DriveSubsystem.drive( 
-              MathUtil.applyDeadband(-m_driverController.getLeftY(), 0.30), 
-              MathUtil.applyDeadband(-m_driverController.getLeftX(), 0.30),
-              MathUtil.applyDeadband(-m_driverController.getRightX(), 0.30),
-              true),
-          m_DriveSubsystem)
-    );
 
   }
   // /** 
