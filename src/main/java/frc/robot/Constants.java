@@ -52,16 +52,21 @@ public final class Constants {
   }
 
   public static class PositionConstants {
-    // Home setpoint
-    public static final double kHomeArmPosition = 0;
-    public static final double kHomeElevatorPosition = 0;
 
     // Human player/coral intake setpoint
     public static final double kHumanArmPosition = 0.4262903034687042;
     public static final double kHumanElevatorPosition = 67.1962890625;
 
+    // Home setpoint
+    public static final double kHomeArmPosition = 0.32972583174705505;
+    public static final double kHomeElevatorPosition = 14;
+
+    // L1
+    public static final double kL1ArmPosition = 0.46141165494918823;
+    public static final double kL1ElevatorPosition = 0;
+
     // L3
-    public static final double kL3ArmPosition = .9638405442237854;
+    public static final double kL3ArmPosition = 0.9638405442237854;
     public static final double kL3ElevatorPosition = 0;
 
     // L4
