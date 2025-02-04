@@ -47,21 +47,31 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 1;
     public static final int kOperatorControllerPort = 0;
+    public static final int kGodControllerPort = 2;
     public static double kHomeArmPosition;
   }
 
   public static class PositionConstants {
-    // Home setpoint
-    public static final double kHomeArmPosition = 0;
-    public static final double kHomeElevatorPosition = 0;
 
     // Human player/coral intake setpoint
-    public static final double kHumanArmPosition = 0;
-    public static final double kHumanElevatorPosition = 0;
+    public static final double kHumanArmPosition = 0.4262903034687042;
+    public static final double kHumanElevatorPosition = 67.1962890625;
 
-    // Setpoint 1
-    public static final double kSetpoint1ArmPosition = 0;
-    public static final double kSetpoint1ElevatorPosition = 0;
+    // Home setpoint
+    public static final double kHomeArmPosition = 0.32972583174705505;
+    public static final double kHomeElevatorPosition = 14;
+
+    // L1
+    public static final double kL1ArmPosition = 0.46141165494918823;
+    public static final double kL1ElevatorPosition = 0;
+
+    // L3
+    public static final double kL3ArmPosition = 0.9638405442237854;
+    public static final double kL3ElevatorPosition = 0;
+
+    // L4
+    public static final double kL4ArmPosition = 0.9521994590759277;
+    public static final double kL4ElevatorPosition = 101.27217864990234;
   }
 
   public static class ModuleConstants {

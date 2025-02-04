@@ -42,8 +42,8 @@ public class ArmCommand extends Command {
     //double triggerAxis = m_Controller.getLeftTriggerAxis()-m_Controller.getRightTriggerAxis();
     //speed*=triggerAxis;
     System.out.println("open loop ARM: speed is " +speed + "\nencoder position is" + m_ArmMotor.getAbsoluteEncoderPosition());
-    m_ArmMotor.setSpeed(speed);
-    m_ArmMotor.setSpeed(-1*speed);
+    if (goUp) m_ArmMotor.setSpeed(speed);
+    else m_ArmMotor.setSpeed(-1*speed);
   }
 
   // Called once the command ends or is interrupted.
