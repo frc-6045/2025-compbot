@@ -14,24 +14,8 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.swerve.DriveSubsystem;
-import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.PIDArmAndElevator;
-import frc.robot.commands.StopPIDArmAndElevator;
-import frc.robot.commands.ArmCommands.ArmCommand;
 import frc.robot.commands.ArmCommands.HoldArm;
-import frc.robot.commands.ArmCommands.PIDArmCommand;
-import frc.robot.commands.ArmCommands.StopPIDArmCommand;
-import frc.robot.commands.ElevatorCommands.ElevatorCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-
-import javax.swing.text.Position;
-
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -62,13 +46,13 @@ public class RobotContainer {
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
   }
 
-  // /** 
-  //  * Use this to pass the autonomous command to the main {@link Robot} class.
-  //  *
-  //  * @return the command to run in autonomous
-  //  */
+  /** 
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
   // public Command getAutonomousCommand() {
   //   // An example command will be run in autonomous
-  //  // return Autos.exampleAuto(m_sparkFlexTesterSubsystem);
+  //   return Autos.exampleAuto(m_sparkFlexTesterSubsystem);
   // }
 }
