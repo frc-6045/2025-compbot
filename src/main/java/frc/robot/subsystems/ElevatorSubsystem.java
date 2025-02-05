@@ -80,7 +80,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     m_ElevatorMotor2.stopMotor();
   }
 
-  public RelativeEncoder getAbsoluteEncoder() {
+  public RelativeEncoder getRelativeEncoder() {
     return m_RelativeEncoder;
   }
 

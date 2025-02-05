@@ -15,6 +15,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.swerve.DriveSubsystem;
 import frc.robot.commands.ArmCommands.HoldArm;
+import frc.robot.commands.ElevatorCommands.HoldElevator;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /**
@@ -44,6 +45,7 @@ public class RobotContainer {
     //configureBindings();
     Bindings.InitBindings(m_operatorController, m_driverController, m_godController, m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem);
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
+    m_ElevatorSubsystem.setDefaultCommand(new HoldElevator(m_ElevatorSubsystem));
   }
 
   /** 
