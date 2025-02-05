@@ -63,6 +63,10 @@ public class ElevatorSubsystem extends SubsystemBase {
         System.out.println("PIDElevator output (speed): " + speed + "\nset point: " + m_ElevatorPIDController.getSetpoint() + "\ncurrent position: " + getRelativeEncoderPosition());
   }
 
+  public boolean atSetpoint() {
+    return m_ElevatorPIDController.atSetpoint();
+  }
+
   public void setSpeed(double speed) {
     speed = (speed > MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? MotorConstants.kSparkFlexElevatorMotorsMaxSpeed : speed;
     speed = (speed < -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed) ? -MotorConstants.kSparkFlexElevatorMotorsMaxSpeed : speed;

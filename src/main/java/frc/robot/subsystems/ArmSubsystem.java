@@ -60,6 +60,10 @@ public class ArmSubsystem extends SubsystemBase {
     //System.out.println("PIDArm output (speed): " + speed + "\nset point: " + m_ArmPIDController.getSetpoint() + "\ncurrent position: " + getAbsoluteEncoderPosition());
   }
 
+  public boolean atSetpoint() {
+    return m_ArmPIDController.atSetpoint();
+  }
+
   public void setSpeed(double speed) {
     if (speed>MotorConstants.kSparkFlexArmMotorMaxSpeed)
       speed = MotorConstants.kSparkFlexArmMotorMaxSpeed;
