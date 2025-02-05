@@ -94,6 +94,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     System.out.println("zero elevator encoder!!");
   }
 
+  public boolean getTopLimitSwitchState() {
+    return topLimitSwitch.get();
+  }
+
+  public boolean getBottomLimitSwitchState() {
+    return bottomLimitSwitch.get();
+  }
+
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Elevator", getRelativeEncoderPosition());

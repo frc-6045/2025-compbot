@@ -53,25 +53,29 @@ public final class Constants {
 
   public static class PositionConstants {
 
-    // Human player/coral intake setpoint
+    // A- Human player/coral intake setpoint
     public static final double kHumanArmPosition = 0.4262903034687042;
-    public static final double kHumanElevatorPosition = 67.1962890625;
+    public static final double kHumanElevatorPosition = 59;
 
-    // Home setpoint
+    // Y- Home setpoint
     public static final double kHomeArmPosition = 0.32972583174705505;
     public static final double kHomeElevatorPosition = 14;
 
-    // L1
+    // B- L1
     public static final double kL1ArmPosition = 0.46141165494918823;
     public static final double kL1ElevatorPosition = 0;
 
-    // L3
+    // L2
+    public static final double kL2ArmPosition = 0.277045;
+    public static final double kL2Elevatorposition = 22.1052;
+
+    // left stick (top left paddle)- L3
     public static final double kL3ArmPosition = 0.9638405442237854;
     public static final double kL3ElevatorPosition = 0;
 
-    // L4
+    // right stick (top right paddle)- L4
     public static final double kL4ArmPosition = 0.9521994590759277;
-    public static final double kL4ElevatorPosition = 101.27217864990234;
+    public static final double kL4ElevatorPosition = 89.22;
   }
 
   public static class ModuleConstants {
