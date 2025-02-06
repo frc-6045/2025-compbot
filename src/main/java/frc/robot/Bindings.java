@@ -9,6 +9,7 @@ import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.StopPIDArmAndElevator;
 import frc.robot.commands.ArmCommands.ArmCommand;
+import frc.robot.commands.ArmCommands.ArmFlick;
 import frc.robot.commands.ElevatorCommands.ElevatorCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -42,6 +43,8 @@ public class Bindings {
         m_operatorController.leftStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL3ArmPosition, m_ElevatorSubsystem, PositionConstants.kL3ElevatorPosition));
         m_operatorController.rightStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL4ArmPosition, m_ElevatorSubsystem, PositionConstants.kL4ElevatorPosition));
         
+        //114222132331m_operatorController.rightBumper().whileTrue(new ArmFlick(m_ArmSubsystem));
+
         m_operatorController.pov(0).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
         m_operatorController.pov(180).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
 

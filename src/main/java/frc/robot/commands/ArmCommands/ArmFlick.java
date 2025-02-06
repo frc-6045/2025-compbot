@@ -5,26 +5,36 @@ import frc.robot.subsystems.ArmSubsystem;
 
 public class ArmFlick extends Command {
     private final ArmSubsystem m_ArmSubsystem;
-    private final double initialPosition;
+    private double initialPosition;
     private boolean state = false;
 
     public ArmFlick(ArmSubsystem m_ArmSubsystem) {
         this.m_ArmSubsystem = m_ArmSubsystem;
-        initialPosition = m_ArmSubsystem.getAbsoluteEncoderPosition();
 
         addRequirements(m_ArmSubsystem);
     }
 
     @Override
+    public void initialize() {
+        initialPosition = m_ArmSubsystem.getAbsoluteEncoderPosition();
+        System.out.println("aaaaaaa");
+  }
+
+    @Override
     public void execute() {
         //double feedforward = 0.01;
         if (!state) {
-            m_ArmSubsystem.goToSetpoint(initialPosition+0.10);
+            System.out.println("initial pos: " + initialPosition + 
+                            "\ncurrent pos: " + m_ArmSubsystem.getAbsoluteEncoderPosition() +
+                            "\n" + m_ArmSubsystem.atSetpoint());
+            m_ArmSubsystem.goToSetpoint(initialPosition+0.05);
             if (m_ArmSubsystem.atSetpoint()) 
             state=true;
+
         }
-         else
-            m_ArmSubsystem.goToSetpoint(initialPosition-0.10);
+        else {
+            m_ArmSubsystem.goToSetpoint(initialPosition-0.05);
+        }
 
     }
 
