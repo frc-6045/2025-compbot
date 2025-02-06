@@ -30,8 +30,17 @@ import java.io.File;
 
 import javax.swing.text.Position;
 
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 
@@ -103,8 +112,7 @@ public class RobotContainer {
                                                                                                                   m_driverController.getRawAxis(
                                                                                                                       2) *
                                                                                                                   Math.PI) *
-                                                                                                              (Math.PI *
-                                                                                                               2))
+                                                                                                              (Math.PI *2))
                                                                                .headingWhile(true);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -113,6 +121,7 @@ public class RobotContainer {
     configureBindings();
     configureDrivetrain();
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
+    NamedCommands.registerCommand("test", Commands.print("I EXIST"));
   }
 
   /**
@@ -126,7 +135,53 @@ public class RobotContainer {
    */
 
   private void configureDrivetrain() {
+    Command driveFieldOrientedDirectAngle      = m_DriveSubsystem.driveFieldOriented(driveDirectAngle);
+    Command driveFieldOrientedAnglularVelocity = m_DriveSubsystem.driveFieldOriented(driveAngularVelocity);
+    Command driveRobotOrientedAngularVelocity  = m_DriveSubsystem.driveFieldOriented(driveRobotOriented);
+    Command driveSetpointGen = m_DriveSubsystem.driveWithSetpointGeneratorFieldRelative(
+        driveDirectAngle);
+    Command driveFieldOrientedDirectAngleKeyboard      = m_DriveSubsystem.driveFieldOriented(driveDirectAngleKeyboard);
+    Command driveFieldOrientedAnglularVelocityKeyboard = m_DriveSubsystem.driveFieldOriented(driveAngularVelocityKeyboard);
+    Command driveSetpointGenKeyboard = m_DriveSubsystem.driveWithSetpointGeneratorFieldRelative(
+        driveDirectAngleKeyboard);
 
+    if (RobotBase.isSimulation())
+    {
+      m_DriveSubsystem.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
+    } else
+    {
+      m_DriveSubsystem.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+    }
+
+    if (Robot.isSimulation())
+    {
+      m_driverController.start().onTrue(Commands.runOnce(() -> m_DriveSubsystem.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
+      m_driverController.button(1).whileTrue(m_DriveSubsystem.sysIdDriveMotorCommand());
+
+    }
+    if (DriverStation.isTest())
+    {
+      m_DriveSubsystem.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
+
+      m_driverController.x().whileTrue(Commands.runOnce(m_DriveSubsystem::lock, m_DriveSubsystem).repeatedly());
+      m_driverController.y().whileTrue(m_DriveSubsystem.driveToDistanceCommand(1.0, 0.2));
+      m_driverController.start().onTrue((Commands.runOnce(m_DriveSubsystem::zeroGyro)));
+      m_driverController.back().whileTrue(m_DriveSubsystem.centerModulesCommand());
+      m_driverController.leftBumper().onTrue(Commands.none());
+      m_driverController.rightBumper().onTrue(Commands.none());
+    } else
+    {
+      m_driverController.a().onTrue((Commands.runOnce(m_DriveSubsystem::zeroGyro)));
+      m_driverController.x().onTrue(Commands.runOnce(m_DriveSubsystem::addFakeVisionReading));
+      m_driverController.b().whileTrue(
+          m_DriveSubsystem.driveToPose(
+              new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
+                              );
+      m_driverController.start().whileTrue(Commands.none());
+      m_driverController.back().whileTrue(Commands.none());
+      m_driverController.leftBumper().whileTrue(Commands.runOnce(m_DriveSubsystem::lock, m_DriveSubsystem).repeatedly());
+      m_driverController.rightBumper().onTrue(Commands.none());
+    }
   }
 
   private void configureBindings() {
