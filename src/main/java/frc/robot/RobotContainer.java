@@ -16,7 +16,12 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.swerve.DriveSubsystem;
 import frc.robot.commands.ArmCommands.HoldArm;
 import frc.robot.commands.ElevatorCommands.HoldElevator;
+
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /**
@@ -31,6 +36,7 @@ public class RobotContainer {
   public static final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
   public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   public final DriveSubsystem m_DriveSubsystem = new DriveSubsystem();
+  //public final Autos m_Autos = new Autos(m_DriveSubsystem, m_IntakeSubsystem, m_ElevatorSubsystem, m_ArmSubsystem);
 
   // define controllers
   private static final CommandXboxController m_operatorController =
@@ -42,8 +48,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the trigger bindings
-    //configureBindings();
+    NamedCommands.registerCommand("hello", Commands.print("hii"));
     Bindings.InitBindings(m_operatorController, m_driverController, m_godController, m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem);
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
     //m_ElevatorSubsystem.setDefaultCommand(new HoldElevator(m_ElevatorSubsystem));
@@ -56,7 +61,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   // public Command getAutonomousCommand() {
-  //   // An example command will be run in autonomous
-  //   return Autos.exampleAuto(m_sparkFlexTesterSubsystem);
+  //   return m_Autos.getAutonomousCommand();
   // }
 }

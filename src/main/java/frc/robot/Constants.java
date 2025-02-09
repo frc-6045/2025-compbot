@@ -76,6 +76,10 @@ public final class Constants {
     // right stick (top right paddle)- L4
     public static final double kL4ArmPosition = 0.9521994590759277;
     public static final double kL4ElevatorPosition = 89.22;
+
+    // arm flick goes to initialposition+kArmFlickDistance1 then to initialposition+kArmFlickDistance2
+    public static final double kArmFlickDistance1=0.05;
+    public static final double kArmFlickDistance2=-0.01;
   }
 
   public static class ModuleConstants {

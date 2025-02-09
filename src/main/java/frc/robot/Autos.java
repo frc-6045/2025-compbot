@@ -24,4 +24,8 @@ public class Autos {
         m_ArmSubsystem = arm;
         autoChooser.addOption("DoNothing", new InstantCommand());
     }
+
+    // public Command getAutonomousCommand() {
+    //     return autoChooser.getSelected();
+    // }
 }

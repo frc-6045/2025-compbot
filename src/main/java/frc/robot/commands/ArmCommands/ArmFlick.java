@@ -1,12 +1,13 @@
 package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.PositionConstants;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class ArmFlick extends Command {
     private final ArmSubsystem m_ArmSubsystem;
     private double initialPosition;
-    private boolean state = false;
+    private boolean state;
 
     public ArmFlick(ArmSubsystem m_ArmSubsystem) {
         this.m_ArmSubsystem = m_ArmSubsystem;
@@ -17,23 +18,22 @@ public class ArmFlick extends Command {
     @Override
     public void initialize() {
         initialPosition = m_ArmSubsystem.getAbsoluteEncoderPosition();
+        state=true;
         System.out.println("aaaaaaa");
   }
 
     @Override
     public void execute() {
         //double feedforward = 0.01;
-        if (!state) {
-            System.out.println("initial pos: " + initialPosition + 
+        System.out.println("desired pos: " + (initialPosition+0.05) + 
                             "\ncurrent pos: " + m_ArmSubsystem.getAbsoluteEncoderPosition() +
                             "\n" + m_ArmSubsystem.atSetpoint());
-            m_ArmSubsystem.goToSetpoint(initialPosition+0.05);
-            if (m_ArmSubsystem.atSetpoint()) 
-            state=true;
-
+        if (state) {
+            m_ArmSubsystem.goToSetpoint(initialPosition+PositionConstants.kArmFlickDistance1);
+            if (m_ArmSubsystem.atSetpoint()) state=false;
         }
         else {
-            m_ArmSubsystem.goToSetpoint(initialPosition-0.05);
+            m_ArmSubsystem.goToSetpoint(initialPosition+PositionConstants.kArmFlickDistance2);
         }
 
     }

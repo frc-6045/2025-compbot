@@ -43,7 +43,7 @@ public class Bindings {
         m_operatorController.leftStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL3ArmPosition, m_ElevatorSubsystem, PositionConstants.kL3ElevatorPosition));
         m_operatorController.rightStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL4ArmPosition, m_ElevatorSubsystem, PositionConstants.kL4ElevatorPosition));
         
-        //114222132331m_operatorController.rightBumper().whileTrue(new ArmFlick(m_ArmSubsystem));
+        m_operatorController.rightBumper().onTrue(new ArmFlick(m_ArmSubsystem));
 
         m_operatorController.pov(0).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
         m_operatorController.pov(180).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
