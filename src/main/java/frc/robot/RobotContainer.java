@@ -14,6 +14,9 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.swerve.DriveSubsystem;
+import frc.robot.util.Elastic;
+import frc.robot.util.Elastic.Notification;
+import frc.robot.util.Elastic.Notification.NotificationLevel;
 import frc.robot.commands.ArmCommands.HoldArm;
 import frc.robot.commands.ElevatorCommands.HoldElevator;
 
@@ -36,7 +39,8 @@ public class RobotContainer {
   public static final ElevatorSubsystem m_ElevatorSubsystem = new ElevatorSubsystem();
   public final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   public final DriveSubsystem m_DriveSubsystem = new DriveSubsystem();
-  //public final Autos m_Autos = new Autos(m_DriveSubsystem, m_IntakeSubsystem, m_ElevatorSubsystem, m_ArmSubsystem);
+  private Autos m_Autos;
+  private Elastic.Notification notification = new Elastic.Notification();
 
   // define controllers
   private static final CommandXboxController m_operatorController =
@@ -48,11 +52,19 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    m_Autos = new Autos(m_DriveSubsystem, m_IntakeSubsystem, m_ElevatorSubsystem, m_ArmSubsystem);
     NamedCommands.registerCommand("hello", Commands.print("hii"));
     Bindings.InitBindings(m_operatorController, m_driverController, m_godController, m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem);
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
     //m_ElevatorSubsystem.setDefaultCommand(new HoldElevator(m_ElevatorSubsystem));
     DriverStation.silenceJoystickConnectionWarning(true);
+
+    Elastic.sendNotification(notification
+      .withLevel(NotificationLevel.INFO)
+      .withTitle("hello")
+      .withDescription("helllloooo!")
+    . withDisplaySeconds(2.0)
+    );
   }
 
   /** 
