@@ -14,20 +14,18 @@ import frc.robot.commands.ElevatorCommands.ElevatorCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.swerve.DriveSubsystem;
 
 public class Bindings {
     public static void InitBindings(
         CommandXboxController m_operatorController, 
         CommandXboxController m_driverController, 
         CommandXboxController m_godController,
-        DriveSubsystem m_DriveSubsystem, 
         ArmSubsystem m_ArmSubsystem, 
         ElevatorSubsystem m_ElevatorSubsystem, 
         IntakeSubsystem m_IntakeSubsystem) {
 
         // Gyro Heading Reset
-        m_driverController.start().onTrue(new InstantCommand(() -> {m_DriveSubsystem.zeroHeading();}, m_DriveSubsystem));
+        // m_driverController.start().onTrue(new InstantCommand(() -> {m_DriveSubsystem.zeroHeading();}, m_DriveSubsystem));
 
         // Operator Controller bindings
         m_operatorController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
@@ -70,14 +68,14 @@ public class Bindings {
         m_godController.pov(270).onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL3ArmPosition, m_ElevatorSubsystem, PositionConstants.kL3ElevatorPosition));
         m_godController.pov(90).onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL4ArmPosition, m_ElevatorSubsystem, PositionConstants.kL4ElevatorPosition));
 
-        m_DriveSubsystem.setDefaultCommand(
-        new RunCommand(
-            () -> m_DriveSubsystem.drive( 
-                MathUtil.applyDeadband(-m_driverController.getLeftY(), 0.30)+MathUtil.applyDeadband(-m_godController.getLeftY(), 0.30), 
-                MathUtil.applyDeadband(-m_driverController.getLeftX(), 0.30)+MathUtil.applyDeadband(-m_godController.getLeftX(), 0.30),
-                MathUtil.applyDeadband(-m_driverController.getRightX(), 0.30)+MathUtil.applyDeadband(-m_godController.getRightX(), 0.30),
-                true),
-            m_DriveSubsystem)
-        );
+        // m_DriveSubsystem.setDefaultCommand(
+        // new RunCommand(
+        //     () -> m_DriveSubsystem.drive( 
+        //         MathUtil.applyDeadband(-m_driverController.getLeftY(), 0.30)+MathUtil.applyDeadband(-m_godController.getLeftY(), 0.30), 
+        //         MathUtil.applyDeadband(-m_driverController.getLeftX(), 0.30)+MathUtil.applyDeadband(-m_godController.getLeftX(), 0.30),
+        //         MathUtil.applyDeadband(-m_driverController.getRightX(), 0.30)+MathUtil.applyDeadband(-m_godController.getRightX(), 0.30),
+        //         true),
+        //     m_DriveSubsystem)
+        // );
     }
 }
