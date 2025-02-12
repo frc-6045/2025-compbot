@@ -9,6 +9,12 @@
           "data": {
             "commands": [
               {
+                "type": "named",
+                "data": {
+                  "name": "kL1ArmPosition"
+                }
+              },
+              {
                 "type": "wait",
                 "data": {
                   "waitTime": 0
@@ -17,7 +23,19 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "MiddleStartBackMiddleAlgae"
+                  "pathName": "FarBackStartFarFrontAlgae"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralSpit"
                 }
               },
               {
@@ -34,6 +52,12 @@
           "data": {
             "commands": [
               {
+                "type": "named",
+                "data": {
+                  "name": "kHumanArmPosition"
+                }
+              },
+              {
                 "type": "wait",
                 "data": {
                   "waitTime": 0
@@ -42,7 +66,19 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BackMiddleAlgaeNet"
+                  "pathName": "FarFrontAlgaeCoralStation"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "runIntake"
                 }
               },
               {
@@ -59,6 +95,12 @@
           "data": {
             "commands": [
               {
+                "type": "named",
+                "data": {
+                  "name": "kL1ArmPosition"
+                }
+              },
+              {
                 "type": "wait",
                 "data": {
                   "waitTime": 0
@@ -67,7 +109,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "NetFarBackAlgae"
+                  "pathName": "CoralStationFarFrontAlgae"
                 }
               },
               {
@@ -80,31 +122,6 @@
                 "type": "named",
                 "data": {
                   "name": null
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "sequential",
-          "data": {
-            "commands": [
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "FarBackAlgaeNet"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0
                 }
               }
             ]

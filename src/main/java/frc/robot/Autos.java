@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.commands.IntakeAutoTest;
+import frc.robot.commands.IntakeAuto;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -30,8 +30,8 @@ public class Autos {
         autoChooser = new SendableChooser<Command>();
         autoChooser.addOption("DoNothing", new InstantCommand(()->{System.out.println("hello I am doing nothing!");}));
         autoChooser.addOption("DoNothing2", new InstantCommand());
-        autoChooser.addOption("new auto!", AutoBuilder.buildAuto("New Auto"));
-        autoChooser.addOption("runIntake", new IntakeAutoTest(intake, 5000));
+        autoChooser.addOption("BackStart2Coral", AutoBuilder.buildAuto("BackStart2Coral"));
+        autoChooser.addOption("runIntake", new IntakeAuto(intake, 1));
         SmartDashboard.putData("autos", autoChooser);
         //Shuffleboard.getTab("Test").add("test!!!",autoChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
     }

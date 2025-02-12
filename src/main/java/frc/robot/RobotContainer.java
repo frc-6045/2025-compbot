@@ -18,6 +18,7 @@ import frc.robot.util.Elastic.Notification;
 import frc.robot.util.Elastic.Notification.NotificationLevel;
 import frc.robot.subsystems.swerve.SwerveSubsystem;
 import swervelib.SwerveInputStream;
+import frc.robot.commands.IntakeAuto;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.StopPIDArmAndElevator;
@@ -139,6 +140,8 @@ public class RobotContainer {
     configureDrivetrain();
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+    NamedCommands.registerCommand("coralSpit", new IntakeAuto(m_IntakeSubsystem, 3));
+    
   }
 
   /**

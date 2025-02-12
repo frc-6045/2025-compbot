@@ -7,12 +7,12 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.RobotContainer;
 
-public class IntakeAutoTest extends Command {
+public class IntakeAuto extends Command {
     private final IntakeSubsystem m_IntakeSubsystem;
     private final double time;
     private final Timer timer = new Timer();
     
-    public IntakeAutoTest(IntakeSubsystem intakeSubsystem, double timee) {
+    public IntakeAuto(IntakeSubsystem intakeSubsystem, double timee) {
         m_IntakeSubsystem = intakeSubsystem;
         time = timee;
         addRequirements(m_IntakeSubsystem);
