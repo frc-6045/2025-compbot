@@ -27,11 +27,14 @@ public class Autos {
         m_ElevatorSubsystem = elev;
         m_ArmSubsystem = arm;
         m_DriveSubsystem = drive;
+
+        //incorprate pathplanner into code
         autoChooser = new SendableChooser<Command>();
         autoChooser.addOption("DoNothing", new InstantCommand(()->{System.out.println("hello I am doing nothing!");}));
         autoChooser.addOption("DoNothing2", new InstantCommand());
         autoChooser.addOption("BackStart2Coral", AutoBuilder.buildAuto("BackStart2Coral"));
-        autoChooser.addOption("runIntake", new IntakeAuto(intake, 1));
+        //autoChooser.addOption("runIntake", new IntakeAuto(intake, 1, true));
+        autoChooser.addOption("DriveForwordAndIntakeTest", AutoBuilder.buildAuto("DriveForwordAndIntakeTest"));
         SmartDashboard.putData("autos", autoChooser);
         //Shuffleboard.getTab("Test").add("test!!!",autoChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
     }

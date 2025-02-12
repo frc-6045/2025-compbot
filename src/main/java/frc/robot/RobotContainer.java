@@ -129,8 +129,10 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+    NamedCommands.registerCommand("coralSpit", new IntakeAuto(m_IntakeSubsystem, 0.222, true));
+    NamedCommands.registerCommand("coralIntake", new IntakeAuto(m_IntakeSubsystem, 0.22, false));
     m_Autos = new Autos(m_DriveSubsystem, m_IntakeSubsystem, m_ElevatorSubsystem, m_ArmSubsystem);
-    NamedCommands.registerCommand("hello", Commands.print("hii"));
     Bindings.InitBindings(m_operatorController, m_driverController, m_godController, m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem);
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
     //m_ElevatorSubsystem.setDefaultCommand(new HoldElevator(m_ElevatorSubsystem));
@@ -139,8 +141,7 @@ public class RobotContainer {
     DriverStation.silenceJoystickConnectionWarning(true);
     configureDrivetrain();
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
-    NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-    NamedCommands.registerCommand("coralSpit", new IntakeAuto(m_IntakeSubsystem, 3));
+    
     
   }
 

@@ -11,11 +11,13 @@ public class IntakeAuto extends Command {
     private final IntakeSubsystem m_IntakeSubsystem;
     private final double time;
     private final Timer timer = new Timer();
+    private final boolean direction;
     
-    public IntakeAuto(IntakeSubsystem intakeSubsystem, double timee) {
+    public IntakeAuto(IntakeSubsystem intakeSubsystem, double timee, boolean direction) {
         m_IntakeSubsystem = intakeSubsystem;
         time = timee;
         addRequirements(m_IntakeSubsystem);
+        this.direction=direction;
     }
 
     @Override
@@ -28,7 +30,8 @@ public class IntakeAuto extends Command {
     @Override
     public void execute() {
         if (timer.get() < time) {
-            m_IntakeSubsystem.setSpeed(0.2, 1, 1);
+            double speed = direction ? 0.7 : -0.7;
+            m_IntakeSubsystem.setSpeed(speed, 1, 1);
         }
     }
 
