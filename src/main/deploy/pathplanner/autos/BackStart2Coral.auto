@@ -52,12 +52,6 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "kHumanArmPosition"
-                }
-              },
-              {
                 "type": "wait",
                 "data": {
                   "waitTime": 0
@@ -94,12 +88,6 @@
           "type": "sequential",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "CoralL1"
-                }
-              },
               {
                 "type": "wait",
                 "data": {

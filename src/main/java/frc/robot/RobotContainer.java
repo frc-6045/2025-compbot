@@ -131,7 +131,7 @@ public class RobotContainer {
   public RobotContainer() {
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
     NamedCommands.registerCommand("coralSpit", new IntakeAuto(m_IntakeSubsystem, 0.222, true));
-    NamedCommands.registerCommand("coralIntake", new IntakeAuto(m_IntakeSubsystem, 0.222, false));
+    NamedCommands.registerCommand("coralIntake", new IntakeAuto(m_IntakeSubsystem, 0.011, false));
     NamedCommands.registerCommand("CoralL1", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL1ArmPosition, m_ElevatorSubsystem, PositionConstants.kL1ElevatorPosition));
     NamedCommands.registerCommand("CoralL2", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL2ArmPosition, m_ElevatorSubsystem, PositionConstants.kL2ElevatorPosition));
     NamedCommands.registerCommand("CoralL3", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL3ArmPosition, m_ElevatorSubsystem, PositionConstants.kL3ElevatorPosition));
