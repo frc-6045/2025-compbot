@@ -75,7 +75,7 @@ public final class Constants {
 
     // L2
     public static final double kL2ArmPosition = 0.277045;
-    public static final double kL2Elevatorposition = 22.1052;
+    public static final double kL2ElevatorPosition = 22.1052;
 
     // left stick (top left paddle)- L3
     public static final double kL3ArmPosition = 0.9638405442237854;
