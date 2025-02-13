@@ -17,7 +17,6 @@ import frc.robot.util.Elastic;
 import frc.robot.util.Elastic.Notification;
 import frc.robot.util.Elastic.Notification.NotificationLevel;
 import frc.robot.subsystems.swerve.SwerveSubsystem;
-import swervelib.SwerveInputStream;
 import frc.robot.commands.IntakeAuto;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.PIDArmAndElevator;
