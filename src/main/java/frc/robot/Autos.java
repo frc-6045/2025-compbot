@@ -35,6 +35,7 @@ public class Autos {
         autoChooser.addOption("BackStart2Coral", AutoBuilder.buildAuto("BackStart2Coral"));
         //autoChooser.addOption("runIntake", new IntakeAuto(intake, 1, true));
         autoChooser.addOption("DriveForwordAndIntakeTest", AutoBuilder.buildAuto("DriveForwordAndIntakeTest"));
+        autoChooser.addOption("MiddleStart1Coral", AutoBuilder.buildAuto("MiddleStart1Coral"));
         SmartDashboard.putData("autos", autoChooser);
         //Shuffleboard.getTab("Test").add("test!!!",autoChooser).withWidget(BuiltInWidgets.kComboBoxChooser);
     }
