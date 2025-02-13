@@ -386,7 +386,7 @@ public class SwerveSubsystem extends SubsystemBase
 
       // Make the robot move
       driveFieldOriented(swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(), scaledInputs.getY(),
-                                                                      -headingX.getAsDouble(),
+                                                                      headingX.getAsDouble(),
                                                                       headingY.getAsDouble(),
                                                                       swerveDrive.getOdometryHeading().getRadians(),
                                                                       swerveDrive.getMaximumChassisVelocity()));
