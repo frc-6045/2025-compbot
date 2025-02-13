@@ -26,4 +26,10 @@ public class PIDArmCommand extends Command {
     public void end(boolean Interrupted) {
         m_ArmSubsystem.stopArmMotor();
     }
+
+    @Override
+    public boolean isFinished() {
+        if (m_ArmSubsystem.atSetpoint()) return true;
+        return false;
+    }
 }

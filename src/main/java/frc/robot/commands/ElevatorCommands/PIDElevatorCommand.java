@@ -25,4 +25,10 @@ public class PIDElevatorCommand extends Command {
     public void end(boolean Interrupted) {
         m_ElevatorSubsystem.stopElevatorMotors();
     }
+
+    @Override
+    public boolean isFinished() {
+        if (m_ElevatorSubsystem.atSetpoint()) return true;
+        return false;
+    }
 }

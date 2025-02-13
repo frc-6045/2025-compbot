@@ -60,8 +60,7 @@ public class SwerveSubsystem extends SubsystemBase
 {
 
   private final SwerveDrive swerveDrive;
-  // idk if we will use vision
-  //private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2024Crescendo);
+  private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2024Crescendo);
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
