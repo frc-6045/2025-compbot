@@ -13,16 +13,16 @@ import frc.robot.commands.IntakeAuto;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.swerve.SwerveSubsystem;
+import frc.robot.subsystems.swerve.DriveSubsystem;
 
 public class Autos {
-    private final SwerveSubsystem m_DriveSubsystem;
+    private final DriveSubsystem m_DriveSubsystem;
     private final IntakeSubsystem m_IntakeSubsystem;
     private final ElevatorSubsystem m_ElevatorSubsystem;
     private final ArmSubsystem m_ArmSubsystem;
     private SendableChooser<Command> autoChooser;
     //private ShuffleboardTab autoTab = Shuffleboard.getTab("Autonomous");
-    public Autos(SwerveSubsystem drive, IntakeSubsystem intake, ElevatorSubsystem elev, ArmSubsystem arm) {
+    public Autos(DriveSubsystem drive, IntakeSubsystem intake, ElevatorSubsystem elev, ArmSubsystem arm) {
         m_IntakeSubsystem = intake;
         m_ElevatorSubsystem = elev;
         m_ArmSubsystem = arm;

@@ -16,7 +16,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.util.Elastic;
 import frc.robot.util.Elastic.Notification;
 import frc.robot.util.Elastic.Notification.NotificationLevel;
-import frc.robot.subsystems.swerve.SwerveSubsystem;
+import frc.robot.subsystems.swerve.DriveSubsystem;
 import swervelib.SwerveInputStream;
 import frc.robot.commands.IntakeAuto;
 import frc.robot.commands.IntakeCommand;
@@ -66,8 +66,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   private Autos m_Autos;
   
-  public final SwerveSubsystem m_DriveSubsystem = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
-                                                                                "swerve/neo"));
+  public final DriveSubsystem m_DriveSubsystem = new DriveSubsystem();
 
   // define controllers
   private final CommandXboxController m_operatorController =
@@ -91,10 +90,21 @@ public class RobotContainer {
     NamedCommands.registerCommand("CoralIntake", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHumanArmPosition, m_ElevatorSubsystem, PositionConstants.kHumanElevatorPosition));
     NamedCommands.registerCommand("HomePosition", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kHomeArmPosition, m_ElevatorSubsystem, PositionConstants.kHomeElevatorPosition));
     m_Autos = new Autos(m_DriveSubsystem, m_IntakeSubsystem, m_ElevatorSubsystem, m_ArmSubsystem);
+    
     Bindings.InitBindings(m_operatorController, m_driverController, m_godController, m_DriveSubsystem, m_ArmSubsystem, m_ElevatorSubsystem, m_IntakeSubsystem);
-    Bindings.configureDrivetrain(m_DriveSubsystem, m_driverController);
+    
+    m_DriveSubsystem.setDefaultCommand(
+        new RunCommand(
+            () -> m_DriveSubsystem.drive( 
+                MathUtil.applyDeadband(-m_driverController.getLeftY(), 0.30)+MathUtil.applyDeadband(-m_godController.getLeftY(), 0.30), 
+                MathUtil.applyDeadband(-m_driverController.getLeftX(), 0.30)+MathUtil.applyDeadband(-m_godController.getLeftX(), 0.30),
+                MathUtil.applyDeadband(-m_driverController.getRightX(), 0.30)+MathUtil.applyDeadband(-m_godController.getRightX(), 0.30),
+                true),
+            m_DriveSubsystem)
+        );
     m_ArmSubsystem.setDefaultCommand(new HoldArm(m_ArmSubsystem));
     //m_ElevatorSubsystem.setDefaultCommand(new HoldElevator(m_ElevatorSubsystem));
+    
     DriverStation.silenceJoystickConnectionWarning(true);
     
     
