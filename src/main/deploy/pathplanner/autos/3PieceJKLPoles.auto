@@ -5,33 +5,128 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "StartToJPole"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "StartToJPole"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "CoralL4"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "JPoleToHPS"
+            "name": "coralSpit"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "HPSToKPole"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "JPoleToHPS"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "CoralIntakeSetpoint"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "KPoleToHPS"
+            "name": "coralIntake"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "HPSToLPole"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "HPSToKPole"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "CoralL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralSpit"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "KPoleToHPS"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "CoralIntakeSetpoint"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralIntake"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "HPSToLPole"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "CoralL4"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "coralSpit"
           }
         }
       ]
