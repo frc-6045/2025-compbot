@@ -6,26 +6,16 @@ package frc.robot;
 
 // constants
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.Constants.MotorConstants;
 import frc.robot.Constants.PositionConstants;
 
 // subsystems
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.util.Elastic;
-import frc.robot.util.Elastic.Notification;
-import frc.robot.util.Elastic.Notification.NotificationLevel;
 import frc.robot.subsystems.swerve.SwerveSubsystem;
-import swervelib.SwerveInputStream;
 import frc.robot.commands.IntakeAuto;
-import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.PIDArmAndElevator;
-import frc.robot.commands.StopPIDArmAndElevator;
-import frc.robot.commands.ArmCommands.ArmCommand;
 import frc.robot.commands.ArmCommands.HoldArm;
-import frc.robot.commands.ElevatorCommands.ElevatorCommand;
-import frc.robot.commands.ElevatorCommands.HoldElevator;
 
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -33,25 +23,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 
 import java.io.File;
 
-import javax.swing.text.Position;
-
-import com.pathplanner.lib.auto.NamedCommands;
-
-import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
