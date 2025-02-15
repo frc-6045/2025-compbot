@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -52.19303883035708
+    "rotation": -52.19303883035709
   },
   "reversed": false,
-  "folder": "POLES",
+  "folder": "coral",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -120.74426394294206
