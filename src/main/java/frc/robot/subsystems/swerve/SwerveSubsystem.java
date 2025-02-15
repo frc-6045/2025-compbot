@@ -145,6 +145,8 @@ public class SwerveSubsystem extends SubsystemBase
                   moduleFeedForwards.linearForces()
                                );
                                System.out.println("Drive!");
+                               System.out.println(speedsRobotRelative.vyMetersPerSecond);
+                               System.out.println(speedsRobotRelative.vxMetersPerSecond);
             } else
             {
               swerveDrive.setChassisSpeeds(speedsRobotRelative);
