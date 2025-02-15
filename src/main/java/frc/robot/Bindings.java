@@ -64,6 +64,8 @@ public class Bindings {
         m_driverController.rightBumper().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_driverController));
         m_driverController.leftBumper().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_driverController));
 
+        m_driverController.a().onTrue(new InstantCommand(() -> {System.out.println("gyro reset"); m_driveSubsystem.zeroHeading();}));
+
         // Controller with both driver and operator functions
         m_godController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
         m_godController.rightTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
