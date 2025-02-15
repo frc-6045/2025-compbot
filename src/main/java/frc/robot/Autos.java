@@ -30,6 +30,8 @@ public class Autos {
         autoChooser.addOption("DoNothing2", new InstantCommand());
         autoChooser.addOption("BackStart2Coral", AutoBuilder.buildAuto("BackStart2Coral"));
         //autoChooser.addOption("runIntake", new IntakeAuto(intake, 1, true));
+        autoChooser.addOption("3PieceJKLPolesWithCommands", AutoBuilder.buildAuto("3PieceJKLPoles"));
+        autoChooser.addOption("3PieceJKLPolesDriveOnly", AutoBuilder.buildAuto("3PieceJKLPolesOld"));
         autoChooser.addOption("DriveForwordAndIntakeTest", AutoBuilder.buildAuto("DriveForwordAndIntakeTest"));
         autoChooser.addOption("MiddleStart1Coral", AutoBuilder.buildAuto("MiddleStart1Coral"));
         SmartDashboard.putData("autos", autoChooser);
