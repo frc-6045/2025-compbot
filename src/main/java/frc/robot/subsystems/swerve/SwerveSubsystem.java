@@ -144,9 +144,11 @@ public class SwerveSubsystem extends SubsystemBase
                   swerveDrive.kinematics.toSwerveModuleStates(speedsRobotRelative),
                   moduleFeedForwards.linearForces()
                                );
+                               System.out.println("Drive!");
             } else
             {
               swerveDrive.setChassisSpeeds(speedsRobotRelative);
+              System.out.println("Chassis!");
             }
           },
           // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
