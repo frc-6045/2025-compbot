@@ -95,67 +95,7 @@ public final class Constants {
     public static final double kArmFlickDistance2=-0.01;
   }
 
-  public static class SwerveConstants {
-    public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
-    public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
-    public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
-    public static final double MAX_SPEED = Units.feetToMeters(14.34);;
-  }
-
-  public static final class DriveConstants {
-    // Driving Parameters - Note that these are not the maximum capable speeds of
-    // the robot, rather the allowed maximum speeds
-    
-    //Slew Constants
-    public static final double kMaxSpeedMetersPerSecond =  5.74; //changed from 4.8 bc stuff wasnt straped down
-    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
-    public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
-    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = //
-    kMaxAngularSpeed; // was 4
-    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 4; //was 2
-
-
-    // Chassis configuration
-    public static final double kTrackWidth = Units.inchesToMeters(24.9375); //22.5 //TODO: find all of this
-    // Distance between centers of right and left wheels on robot
-    public static final double kWheelBase = Units.inchesToMeters(24.9375); // 26.7
-    // Distance between front and back wheels on robot
-    public static final double radiusMeters = Units.inchesToMeters(17.625); ///.8879 meters preconverted before
-    //the distance from the center of the robot to the furthest swerve module
-    public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
-        new Translation2d(kWheelBase / 2, kTrackWidth / 2),
-        new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
-        new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
-        new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
-
-
-    // Angular offsets of the modules relative to the chassis in radians
-    public static final double kFrontLeftChassisAngularOffset = -Math.PI / 2; //-Math.PI / 2;
-    public static final double kFrontRightChassisAngularOffset = 0; // 0
-    public static final double kBackLeftChassisAngularOffset = Math.PI; // Math.PI
-    public static final double kBackRightChassisAngularOffset = Math.PI / 2; // Math.PI / 2
-
-    // SPARK FLEX CAN IDs
-    public static final int kFrontLeftDrivingCanId = 1;
-    public static final int kRearLeftDrivingCanId = 3;
-    public static final int kFrontRightDrivingCanId = 5;
-    public static final int kRearRightDrivingCanId = 7;
-
-    public static final int kFrontLeftTurningCanId = 2;
-    public static final int kRearLeftTurningCanId = 4;
-    public static final int kFrontRightTurningCanId = 6; //6
-    public static final int kRearRightTurningCanId = 8; //8
-
-    public static final boolean kGyroReversed = false;
-    //change
-    public static final double kTurningAngleP = 0;
-    public static final double kTurningAngleI = 0;
-    public static final double kTurningAngleD = 0;
-
-
-  }
-
-  public static final class ModuleConstants {
+  public static class ModuleConstants {
     // The MAXSwerve module can be configured with one of three pinion gears: 12T, 13T, or 14T.
     // This changes the drive speed of the module (a pinion gear with more teeth will result in a
     // robot that drives faster).
@@ -165,8 +105,10 @@ public final class Constants {
     // the steering motor in the MAXSwerve Module.
     public static final boolean kTurningEncoderInverted = true;
 
+    public static final double kFreeSpeedRpm = 6784; //NEO Motor 
+
     // Calculations required for driving motor conversion factors and feed forward
-    public static final double kDrivingMotorFreeSpeedRps = 6784 / 60;
+    public static final double kDrivingMotorFreeSpeedRps = kFreeSpeedRpm / 60;
     public static final double kWheelDiameterMeters = 0.0762;
     public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
     // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15 teeth on the bevel pinion
@@ -187,7 +129,7 @@ public final class Constants {
     public static final double kTurningEncoderPositionPIDMaxInput = kTurningEncoderPositionFactor; // radians
 
     //Drivetrain P
-    public static final double kDrivingP = 0.25; //was 0.8
+    public static final double kDrivingP = 0.01; //was 0.8
     public static final double kDrivingI = 0;
     public static final double kDrivingD = 0;
     public static final double kDrivingFF = 1 / kDriveWheelFreeSpeedRps; 
@@ -206,6 +148,67 @@ public final class Constants {
 
     public static final int kDrivingMotorCurrentLimit = 50; // 80 amps
     public static final int kTurningMotorCurrentLimit = 20; // amps
+  }
+
+  public static class AutoConstants {
+
+  }
+
+  public static class DriveConstants {
+    // Driving Parameters - Note that these are not the maximum capable speeds of
+    // the robot, rather the allowed maximum speeds
+    
+    //Slew Constants
+    public static final double kMaxSpeedMetersPerSecond =  5.74; //changed from 4.8 bc stuff wasnt straped down
+    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
+    public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
+    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = //
+    kMaxAngularSpeed; // was 4
+    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 4; //was 2
+
+
+    // Chassis configuration
+    public static final double kTrackWidth = Units.inchesToMeters(28); //22.5     24.9375  //TODO: find all of this
+    // Distance between centers of right and left wheels on robot
+    public static final double kWheelBase = Units.inchesToMeters(28); // 26.7  24.9375
+    // Distance between front and back wheels on robot
+    public static final double radiusMeters = Units.inchesToMeters(19.798); ///.8879 meters preconverted before
+    //the distance from the center of the robot to the furthest swerve module
+
+    public static final double kGyroOffsetX = Units.inchesToMeters(-3);
+    public static final double kGyroOffsetY = Units.inchesToMeters(-2);
+    
+    //front left module
+    public static final int kFrontLeftDrivingCanId = 1;
+    public static final int kFrontLeftTurningCanId = 2;
+    //front right module
+    public static final int kFrontRightDrivingCanId = 3;
+    public static final int kFrontRightTurningCanId = 4;
+    //rear left module
+    public static final int kRearLeftDrivingCanId = 5;
+    public static final int kRearLeftTurningCanId = 6;
+    //rear right module
+    public static final int kRearRightDrivingCanId = 7;
+    public static final int kRearRightTurningCanId = 8;
+
+    // offsets
+    public static final double kFrontLeftChassisAngularOffset = -Math.PI / 2;
+    public static final double kFrontRightChassisAngularOffset = 0;
+    public static final double kRearLeftChassisAngularOffset = Math.PI;
+    public static final double kRearRightChassisAngularOffset = Math.PI / 2;
+
+
+    public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
+        new Translation2d(kWheelBase / 2, kTrackWidth / 2),
+        new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
+        new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
+        new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
+
+        public static final boolean kGyroReversed = false;
+        //change
+        public static final double kTurningAngleP = 0;
+        public static final double kTurningAngleI = 0;
+        public static final double kTurningAngleD = 0;
   }
   
 }
