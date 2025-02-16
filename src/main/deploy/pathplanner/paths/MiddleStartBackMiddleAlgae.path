@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.049249999999999,
-        "y": 3.946999999997924
+        "x": 7.4084016393442615,
+        "y": 4.402612704918033
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.181499999996748,
-        "y": 3.976249999997924
+        "x": 7.566,
+        "y": 5.649334016393442
       },
       "prevControl": {
-        "x": 6.581249999996748,
-        "y": 3.9567499999979234
+        "x": 7.554012295081968,
+        "y": 5.157838114754098
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,14 +41,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -179.4031905487708
+    "velocity": 0.0,
+    "rotation": -160.0
   },
   "reversed": false,
   "folder": "algae",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 178.63607246839712
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

@@ -101,7 +101,7 @@ public class SwerveSubsystem extends SubsystemBase
     swerveDrive = new SwerveDrive(driveCfg,
                                   controllerCfg,
                                   SwerveConstants.MAX_SPEED,
-                                  new Pose2d(new Translation2d(Meter.of(2), Meter.of(0)),
+                                  new Pose2d(new Translation2d(Meter.of(0), Meter.of(0)),
                                              Rotation2d.fromDegrees(0)));
   }
 
@@ -139,19 +139,14 @@ public class SwerveSubsystem extends SubsystemBase
           (speedsRobotRelative, moduleFeedForwards) -> {
             if (enableFeedforward)
             {
-              speedsRobotRelative.vyMetersPerSecond*=-1;
               swerveDrive.drive(
                   speedsRobotRelative,
                   swerveDrive.kinematics.toSwerveModuleStates(speedsRobotRelative),
                   moduleFeedForwards.linearForces()
                                );
-                               System.out.println("Drive!");
-                               System.out.println(speedsRobotRelative.vyMetersPerSecond);
-                               System.out.println(speedsRobotRelative.vxMetersPerSecond);
             } else
             {
               swerveDrive.setChassisSpeeds(speedsRobotRelative);
-              System.out.println("Chassis!");
             }
           },
           // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
@@ -480,6 +475,12 @@ public class SwerveSubsystem extends SubsystemBase
   {
     return swerveDrive.getPose();
   }
+
+  // public Pose2d getPoseAuto() {
+  
+  //   Pose2d pose = new Pose2d(getPose().getX(), getPose.getY(), getPose.getRotation());
+  //   pose
+  // }
 
   /**
    * Set chassis speeds with closed-loop velocity control.

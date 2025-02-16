@@ -19,12 +19,6 @@
                 "data": {
                   "waitTime": 0
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "coralSpit"
-                }
               }
             ]
           }
