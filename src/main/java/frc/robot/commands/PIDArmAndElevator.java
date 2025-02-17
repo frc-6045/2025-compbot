@@ -45,7 +45,7 @@ public class PIDArmAndElevator extends Command {
 
     @Override
     public void end(boolean Interrupted) {
-        m_ArmSubsystem.stopArmMotor();
+        //m_ArmSubsystem.stopArmMotor();
         m_ElevatorSubsystem.stopElevatorMotors();
     }
 
