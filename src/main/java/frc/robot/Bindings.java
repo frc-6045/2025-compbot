@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PositionConstants;
+import frc.robot.commands.IntakeAuto;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.StopPIDArmAndElevator;
@@ -50,7 +51,8 @@ public class Bindings {
         m_operatorController.leftStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL3ArmPosition, m_ElevatorSubsystem, PositionConstants.kL3ElevatorPosition));
         m_operatorController.rightStick().onTrue(new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL4ArmPosition, m_ElevatorSubsystem, PositionConstants.kL4ElevatorPosition));
         
-        m_operatorController.rightBumper().onTrue(new ArmFlick(m_ArmSubsystem));
+        //m_operatorController.rightBumper().onTrue(new ArmFlick(m_ArmSubsystem));
+        m_operatorController.rightBumper().onTrue(new IntakeAuto(m_IntakeSubsystem, 2, true));
 
         m_operatorController.pov(0).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
         m_operatorController.pov(180).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
