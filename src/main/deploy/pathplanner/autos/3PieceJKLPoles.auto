@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "CoralL4"
+                  "name": "coralL4"
                 }
               }
             ]
@@ -42,7 +42,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "CoralIntakeSetpoint"
+                  "name": "coralIntakeSetpoint"
                 }
               }
             ]
@@ -67,7 +67,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "CoralL4"
+                  "name": "coralL4"
                 }
               }
             ]
@@ -92,7 +92,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "CoralIntakeSetpoint"
+                  "name": "coralIntakeSetpoint"
                 }
               }
             ]
@@ -117,7 +117,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "CoralL4"
+                  "name": "coralL4"
                 }
               }
             ]

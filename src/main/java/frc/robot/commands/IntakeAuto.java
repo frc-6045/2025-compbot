@@ -29,7 +29,16 @@ public class IntakeAuto extends Command {
         if (timer.get() < time) {
             double speed = direction ? 0.7 : -0.7;
             m_IntakeSubsystem.setSpeed(speed, 1, 1);
+            System.out.println("timer value: "+ timer.get() + " time: " + time);
         }
+    }
+
+    @Override
+    public boolean isFinished() {
+        if (timer.get()>time) {
+            return true;
+        }
+        return false;
     }
 
     @Override
