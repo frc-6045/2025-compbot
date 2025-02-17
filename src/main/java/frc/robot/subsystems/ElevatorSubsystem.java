@@ -39,9 +39,9 @@ public class ElevatorSubsystem extends SubsystemBase {
     topLimitSwitch = new DigitalInput(1);
     bottomLimitSwitch = new DigitalInput(0);
 
-    m_ElevatorPIDController = new PIDController(0.03, 0, 0);
+    m_ElevatorPIDController = new PIDController(0.04, 0, 0);
     //m_ElevatorPIDController.enableContinuousInput(0, 1);
-    //m_ArmPIDController.setTolerance(0.0038);
+    m_ElevatorPIDController.setTolerance(2);
 
   }
 

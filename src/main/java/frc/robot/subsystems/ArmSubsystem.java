@@ -32,7 +32,7 @@ public class ArmSubsystem extends SubsystemBase {
     m_ArmMotor = new SparkFlex(MotorConstants.kSparkFlexArmMotorCANID, MotorType.kBrushless);
     m_AbsoluteEncoder = m_ArmMotor.getAbsoluteEncoder();
     m_ArmPIDController.enableContinuousInput(0, 1);
-    m_ArmPIDController.setTolerance(0.005);
+    m_ArmPIDController.setTolerance(0.01);
 
     updateMotorSettings(m_ArmMotor);
     m_ArmMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);

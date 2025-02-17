@@ -58,8 +58,8 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
-    NamedCommands.registerCommand("coralSpit", new IntakeAuto(m_IntakeSubsystem, 1, true));
-    NamedCommands.registerCommand("coralIntake", new IntakeAuto(m_IntakeSubsystem, 1, false));
+    NamedCommands.registerCommand("coralSpit", new IntakeAuto(m_IntakeSubsystem, 1, false));
+    NamedCommands.registerCommand("coralIntake", new IntakeAuto(m_IntakeSubsystem, 1, true));
     NamedCommands.registerCommand("coralL1", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL1ArmPosition, m_ElevatorSubsystem, PositionConstants.kL1ElevatorPosition));
     NamedCommands.registerCommand("coralL2", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL2ArmPosition, m_ElevatorSubsystem, PositionConstants.kL2ElevatorPosition));
     NamedCommands.registerCommand("coralL3", new PIDArmAndElevator(m_ArmSubsystem, PositionConstants.kL3ArmPosition, m_ElevatorSubsystem, PositionConstants.kL3ElevatorPosition));
