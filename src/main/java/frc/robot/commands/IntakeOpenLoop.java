@@ -5,11 +5,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.Constants.MotorConstants;
 
-public class IntakeCommand extends Command {
+public class IntakeOpenLoop extends Command {
     private final IntakeSubsystem m_IntakeSubsystem;
     private final CommandXboxController controller;
     
-    public IntakeCommand(IntakeSubsystem intakeSubsystem, CommandXboxController xboxController) {
+    public IntakeOpenLoop(IntakeSubsystem intakeSubsystem, CommandXboxController xboxController) {
         m_IntakeSubsystem = intakeSubsystem;
         controller = xboxController;
         addRequirements(m_IntakeSubsystem);

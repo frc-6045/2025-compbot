@@ -7,7 +7,10 @@ import frc.robot.subsystems.ArmSubsystem;
 public class ArmFlick extends Command {
     private final ArmSubsystem m_ArmSubsystem;
     private double initialPosition;
-    private boolean state;
+    // state is 0 when going from initial position to setpoint 1
+    // 1 when going from setpoint 1 to setpoint 2
+    // 2 when complete
+    private int state;
 
     public ArmFlick(ArmSubsystem m_ArmSubsystem) {
         this.m_ArmSubsystem = m_ArmSubsystem;
@@ -18,7 +21,7 @@ public class ArmFlick extends Command {
     @Override
     public void initialize() {
         initialPosition = m_ArmSubsystem.getAbsoluteEncoderPosition();
-        state=true;
+        state=0;
         System.out.println("aaaaaaa");
   }
 
@@ -28,14 +31,21 @@ public class ArmFlick extends Command {
         System.out.println("desired pos: " + (initialPosition+0.05) + 
                             "\ncurrent pos: " + m_ArmSubsystem.getAbsoluteEncoderPosition() +
                             "\n" + m_ArmSubsystem.atSetpoint());
-        if (state) {
+        if (state==0) {
             m_ArmSubsystem.goToSetpoint(initialPosition+PositionConstants.kArmFlickDistance1);
-            if (m_ArmSubsystem.atSetpoint()) state=false;
+            if (m_ArmSubsystem.atSetpoint()) state=1;
         }
-        else {
+        else if (state==1) {
             m_ArmSubsystem.goToSetpoint(initialPosition+PositionConstants.kArmFlickDistance2);
+            if (m_ArmSubsystem.atSetpoint()) state=2;
         }
 
+    }
+
+    @Override
+    public boolean isFinished() {
+        if (state==2) return true;
+        return false;
     }
 
     @Override

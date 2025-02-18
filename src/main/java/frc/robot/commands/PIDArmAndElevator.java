@@ -1,11 +1,6 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.ArmCommands.PIDArmCommand;
-import frc.robot.commands.ArmCommands.PIDArmThenHold;
-import frc.robot.commands.ElevatorCommands.PIDElevatorCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
@@ -14,7 +9,6 @@ public class PIDArmAndElevator extends Command {
     private final ElevatorSubsystem m_ElevatorSubsystem;
     private final double armSetpoint;
     private final double elevatorSetPoint;
-    private Timer timer;
     public PIDArmAndElevator(ArmSubsystem armSubsystem, double armSetPoint, ElevatorSubsystem elevatorSubsystem, double elevatorSetPoint) {
         m_ArmSubsystem = armSubsystem;
         m_ElevatorSubsystem = elevatorSubsystem;

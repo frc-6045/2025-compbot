@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PositionConstants;
 import frc.robot.commands.IntakeAuto;
-import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.IntakeOpenLoop;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.StopPIDArmAndElevator;
-import frc.robot.commands.ArmCommands.ArmCommand;
+import frc.robot.commands.ArmCommands.ArmOpenLoop;
 import frc.robot.commands.ArmCommands.ArmFlick;
-import frc.robot.commands.ElevatorCommands.ElevatorCommand;
+import frc.robot.commands.ElevatorCommands.ElevatorOpenLoop;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -38,8 +38,8 @@ public class Bindings {
         // m_driverController.start().onTrue(new InstantCommand(() -> {m_DriveSubsystem.zeroHeading();}, m_DriveSubsystem));
 
         // Operator Controller bindings
-        m_operatorController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
-        m_operatorController.rightTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
+        m_operatorController.leftTrigger().whileTrue(new IntakeOpenLoop(m_IntakeSubsystem, m_operatorController));
+        m_operatorController.rightTrigger().whileTrue(new IntakeOpenLoop(m_IntakeSubsystem, m_operatorController));
 
         m_operatorController.leftBumper().onTrue(new InstantCommand(() -> {System.out.println("\narm encoder value: " + m_ArmSubsystem.getAbsoluteEncoderPosition()); System.out.println("elev encoder value: " + m_ElevatorSubsystem.getRelativeEncoderPosition());}));
         m_operatorController.x().onTrue(new StopPIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem)); // stop PID arm and elevator
@@ -55,22 +55,22 @@ public class Bindings {
         //m_operatorController.rightBumper().onTrue(new IntakeAuto(m_IntakeSubsystem, 2, true));
         m_operatorController.rightBumper().onTrue(new InstantCommand(() -> {System.out.println(m_ElevatorSubsystem.getBottomLimitSwitchState());}));
 
-        m_operatorController.pov(0).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, true));
-        m_operatorController.pov(180).whileTrue(new ElevatorCommand(m_ElevatorSubsystem, false));
+        m_operatorController.pov(0).whileTrue(new ElevatorOpenLoop(m_ElevatorSubsystem, true));
+        m_operatorController.pov(180).whileTrue(new ElevatorOpenLoop(m_ElevatorSubsystem, false));
 
         // Driver Controller bindings
-        m_driverController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_driverController));
-        m_driverController.rightTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_driverController));
+        m_driverController.leftTrigger().whileTrue(new IntakeOpenLoop(m_IntakeSubsystem, m_driverController));
+        m_driverController.rightTrigger().whileTrue(new IntakeOpenLoop(m_IntakeSubsystem, m_driverController));
 
-        m_driverController.rightBumper().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_driverController));
-        m_driverController.leftBumper().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_driverController));
+        m_driverController.rightBumper().whileTrue(new ArmOpenLoop(m_ArmSubsystem, true));
+        m_driverController.leftBumper().whileTrue(new ArmOpenLoop(m_ArmSubsystem, false));
 
         // Controller with both driver and operator functions
-        m_godController.leftTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
-        m_godController.rightTrigger().whileTrue(new IntakeCommand(m_IntakeSubsystem, m_operatorController));
+        m_godController.leftTrigger().whileTrue(new IntakeOpenLoop(m_IntakeSubsystem, m_operatorController));
+        m_godController.rightTrigger().whileTrue(new IntakeOpenLoop(m_IntakeSubsystem, m_operatorController));
 
-        m_godController.rightBumper().whileTrue(new ArmCommand(m_ArmSubsystem, true, m_driverController));
-        m_godController.leftBumper().whileTrue(new ArmCommand(m_ArmSubsystem, false, m_driverController));
+        m_godController.rightBumper().whileTrue(new ArmOpenLoop(m_ArmSubsystem, true));
+        m_godController.leftBumper().whileTrue(new ArmOpenLoop(m_ArmSubsystem, false));
 
         m_godController.b().onTrue(new InstantCommand(() -> {System.out.println("\narm encoder value: " + m_ArmSubsystem.getAbsoluteEncoderPosition()); System.out.println("elev encoder value: " + m_ElevatorSubsystem.getRelativeEncoderPosition());}));
         m_godController.x().onTrue(new StopPIDArmAndElevator(m_ArmSubsystem, m_ElevatorSubsystem)); // stop PID arm and elevator

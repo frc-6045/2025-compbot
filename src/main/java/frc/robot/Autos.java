@@ -5,19 +5,19 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.swerve.SwerveSubsystem;
 
 public class Autos {
+    // we probably don't need these subsystems here, but I'll leave them for now
     private final SwerveSubsystem m_DriveSubsystem;
     private final IntakeSubsystem m_IntakeSubsystem;
     private final ElevatorSubsystem m_ElevatorSubsystem;
     private final ArmSubsystem m_ArmSubsystem;
     private SendableChooser<Command> autoChooser;
-    //private ShuffleboardTab autoTab = Shuffleboard.getTab("Autonomous");
+
     public Autos(SwerveSubsystem drive, IntakeSubsystem intake, ElevatorSubsystem elev, ArmSubsystem arm) {
         m_IntakeSubsystem = intake;
         m_ElevatorSubsystem = elev;
@@ -29,7 +29,6 @@ public class Autos {
         autoChooser.addOption("SetpointThenIntake", AutoBuilder.buildAuto("SetpointThenIntake"));
         autoChooser.addOption("3piece", AutoBuilder.buildAuto("3PieceJKLTesting"));
         autoChooser.addOption("BackStart2Coral", AutoBuilder.buildAuto("BackStart2Coral"));
-        //autoChooser.addOption("runIntake", new IntakeAuto(intake, 1, true));
         autoChooser.addOption("3PieceJKLPolesWithCommands", AutoBuilder.buildAuto("3PieceJKLPoles"));
         autoChooser.addOption("3PieceJKLPolesDriveOnly", AutoBuilder.buildAuto("3PieceJKLPolesOld"));
         autoChooser.addOption("DriveForwordAndIntakeTest", AutoBuilder.buildAuto("DriveForwordAndIntakeTest"));
