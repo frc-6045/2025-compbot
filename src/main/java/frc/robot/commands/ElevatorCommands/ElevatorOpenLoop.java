@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
 
+/** Operator D-pad up and down moves elevator. */
 public class ElevatorOpenLoop extends Command { 
     private final ElevatorSubsystem m_elevatorSubsystem;
     private boolean goUp;

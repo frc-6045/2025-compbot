@@ -3,6 +3,7 @@ package frc.robot.commands.ArmCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 
+/** Move arm to a setpoint. Usually PIDArmAndElevator will be used instead. */
 public class PIDArmCommand extends Command {
     private final ArmSubsystem m_ArmSubsystem;
     private double setPoint;

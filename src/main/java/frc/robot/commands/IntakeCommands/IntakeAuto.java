@@ -1,9 +1,10 @@
-package frc.robot.commands;
+package frc.robot.commands.IntakeCommands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
+/** Run intake for a set period of time either direction. */
 public class IntakeAuto extends Command {
     private final IntakeSubsystem m_IntakeSubsystem;
     private final double time;

@@ -13,9 +13,9 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.swerve.SwerveSubsystem;
-import frc.robot.commands.IntakeAuto;
 import frc.robot.commands.PIDArmAndElevator;
 import frc.robot.commands.ArmCommands.HoldArm;
+import frc.robot.commands.IntakeCommands.IntakeAuto;
 
 import com.pathplanner.lib.auto.NamedCommands;
 

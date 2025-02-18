@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
+/** Move arm and elevator to their respective setpoints. */
 public class PIDArmAndElevator extends Command {
     private final ArmSubsystem m_ArmSubsystem;
     private final ElevatorSubsystem m_ElevatorSubsystem;

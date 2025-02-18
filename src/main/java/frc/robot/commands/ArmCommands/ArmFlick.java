@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.PositionConstants;
 import frc.robot.subsystems.ArmSubsystem;
 
+/** Closed loop command that moves the arm back and forth once for coral L2. */
 public class ArmFlick extends Command {
     private final ArmSubsystem m_ArmSubsystem;
     private double initialPosition;

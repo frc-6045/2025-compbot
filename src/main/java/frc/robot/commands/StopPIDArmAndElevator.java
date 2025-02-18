@@ -6,6 +6,7 @@ import frc.robot.commands.ElevatorCommands.StopPIDElevatorCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
+/** Cancel any commands using arm and elevator subsystems. */
 public class StopPIDArmAndElevator extends ParallelCommandGroup {
     public StopPIDArmAndElevator(ArmSubsystem armSubsystem, ElevatorSubsystem elevatorSubsystem) {
         addCommands(

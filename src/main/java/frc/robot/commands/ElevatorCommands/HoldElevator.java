@@ -3,7 +3,8 @@ package frc.robot.commands.ElevatorCommands;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-/** An example command that uses an example subsystem. */
+/** Prevent elevator drift when no other commands are running.
+ * Currently unused since the elevator itself won't drift much and the relative encoder has to be zeroed. */
 public class HoldElevator extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ElevatorSubsystem m_ElevatorSubsystem;

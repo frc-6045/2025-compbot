@@ -1,10 +1,11 @@
-package frc.robot.commands;
+package frc.robot.commands.IntakeCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.Constants.MotorConstants;
 
+/** Either controller triggers move intake. */
 public class IntakeOpenLoop extends Command {
     private final IntakeSubsystem m_IntakeSubsystem;
     private final CommandXboxController controller;

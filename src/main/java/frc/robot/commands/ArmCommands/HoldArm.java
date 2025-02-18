@@ -3,7 +3,7 @@ package frc.robot.commands.ArmCommands;
 import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-/** An example command that uses an example subsystem. */
+/** Default command for arm to prevent drift. */
 public class HoldArm extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ArmSubsystem m_ArmSubsystem;
