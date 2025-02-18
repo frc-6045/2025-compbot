@@ -8,24 +8,22 @@ import frc.robot.Constants.MotorConstants;
 
 import frc.robot.subsystems.ArmSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-/** An example command that uses an example subsystem. */
-public class ArmCommand extends Command {
+/** Driver controller bumpers move arm. */
+public class ArmOpenLoop extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ArmSubsystem m_ArmMotor;
   private final boolean goUp;
-  private final CommandXboxController m_Controller;
 
   /**
-   * Creates a new TestSparkFlex.
+   * Creates a new ArmOpenLoop.
    *
    * @param subsystem The subsystem used by this command.
+   * @param up Direction the arm should move
    */
-  public ArmCommand(ArmSubsystem armMotor, boolean up, CommandXboxController m_driverController) {
+  public ArmOpenLoop(ArmSubsystem armMotor, boolean up) {
     m_ArmMotor = armMotor;
     goUp = up;
-    m_Controller = m_driverController;
     
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_ArmMotor);

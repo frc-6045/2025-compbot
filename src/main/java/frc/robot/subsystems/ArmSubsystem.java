@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
@@ -16,8 +15,6 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.MotorConstants;
@@ -35,7 +32,7 @@ public class ArmSubsystem extends SubsystemBase {
     m_ArmMotor = new SparkFlex(MotorConstants.kSparkFlexArmMotorCANID, MotorType.kBrushless);
     m_AbsoluteEncoder = m_ArmMotor.getAbsoluteEncoder();
     m_ArmPIDController.enableContinuousInput(0, 1);
-    m_ArmPIDController.setTolerance(0.005);
+    m_ArmPIDController.setTolerance(0.01);
 
     updateMotorSettings(m_ArmMotor);
     m_ArmMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);

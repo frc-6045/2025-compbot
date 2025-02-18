@@ -9,65 +9,15 @@
           "data": {
             "commands": [
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 0
+                  "name": "CoralL1"
                 }
               },
               {
                 "type": "path",
                 "data": {
-                  "pathName": "MiddleStartBackMiddleAlgae"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "sequential",
-          "data": {
-            "commands": [
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "BackMiddleAlgaeNet"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "sequential",
-          "data": {
-            "commands": [
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "NetFarBackAlgae"
+                  "pathName": "FarBackStartFarFrontAlgae"
                 }
               },
               {
@@ -79,7 +29,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": null
+                  "name": "coralSpit"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0
                 }
               }
             ]
@@ -98,13 +54,56 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "FarBackAlgaeNet"
+                  "pathName": "FarFrontAlgaeCoralStation"
                 }
               },
               {
                 "type": "wait",
                 "data": {
                   "waitTime": 0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "runIntake"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "CoralStationFarFrontAlgae"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "coralSpit"
                 }
               }
             ]
