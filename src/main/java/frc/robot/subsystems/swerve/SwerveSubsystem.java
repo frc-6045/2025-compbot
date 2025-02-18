@@ -55,8 +55,22 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 public class SwerveSubsystem extends SubsystemBase
 {
 
-  private final SwerveDrive swerveDrive;
-  private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2024Crescendo);
+  /**
+   * Swerve drive object.
+   */
+  private final SwerveDrive         swerveDrive;
+  /**
+   * AprilTag field layout.
+   */
+  private final AprilTagFieldLayout aprilTagFieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
+  /**
+   * Enable vision odometry updates while driving.
+   */
+  private final boolean             visionDriveTest     = false;
+  /**
+   * PhotonVision class to keep an accurate odometry.
+   */
+  private Vision vision;
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
