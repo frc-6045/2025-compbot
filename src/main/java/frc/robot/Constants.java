@@ -91,6 +91,26 @@ public final class Constants {
     public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
     public static final double MAX_SPEED = Units.feetToMeters(14.34);
   }
+
+  public static final class LimelightConstants
+  {
+    public static final double CAMERA_ELEVATION = 30.75; // TEST BOT
+    public static final double TARGET_ELEVATION = 258; // TEST BOT
+    public static final double LIMELIGHT_TO_ROBOT_CENTER = 9; // TEST BOT
+    // UNIT = degrees
+    public static final double CAMERA_ANGLE = 0; // TEST BOT
+
+
+    // LED MODES /limelight/ledMode
+    public static final int LED_MODE_FROM_PIPELINE = 0;
+    public static final int LED_MODE_FORCE_OFF = 1;
+    public static final int LED_MODE_FORCE_BLINK = 2;
+    public static final int LED_MODE_FORCE_ON = 3;
+
+    // pipeline numbers
+    public static final int PIPELINE_TELEOP = 0;
+    public static final int PIPELINE_GET_POS = 1;
+  }
   
 }
 
