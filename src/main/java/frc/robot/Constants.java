@@ -40,6 +40,12 @@ public final class Constants {
     public static final int kIntakeMotorsCurrentLimit = 40;
     public static final double kIntakeMotorsSpeed = .5;
     public static final double kIntakeMotorsMaxSpeed = .6;
+
+    //algae-removing constants
+    public static final int kAlgaeRemovingMotorCANID = 14;
+
+    //climb constants
+    public static final int kClimbMotorCANID = 15;
   }
 
   public static class OperatorConstants {
