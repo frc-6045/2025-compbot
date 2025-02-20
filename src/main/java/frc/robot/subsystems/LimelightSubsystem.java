@@ -1,4 +1,8 @@
 //borrowed from https://github.com/frc1418/2022-robot/blob/main/src/main/java/frc/robot/subsystems/LimelightSubsystem.java
+
+// THIS FILE IS PROBABLY REDUNDANT
+// i copy pasted this from 2023 because well, it's called limelight subsystem
+
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.filter.MedianFilter;
