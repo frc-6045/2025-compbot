@@ -8,6 +8,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LimelightConstants;
 
 public class LimelightSubsystem extends SubsystemBase {
     private final NetworkTable table = NetworkTableInstance.getDefault().getTable("/limelight");
