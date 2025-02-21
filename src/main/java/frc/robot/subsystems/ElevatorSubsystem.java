@@ -36,8 +36,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     updateMotorSettings(m_ElevatorMotor1);
     updateMotorSettings(m_ElevatorMotor2);
     m_RelativeEncoder = m_ElevatorMotor1.getEncoder();
-    topLimitSwitch = new DigitalInput(1);
-    bottomLimitSwitch = new DigitalInput(0);
+    topLimitSwitch = new DigitalInput(2);
+    bottomLimitSwitch = new DigitalInput(1);
 
     m_ElevatorPIDController = new PIDController(0.04, 0, 0);
     //m_ElevatorPIDController.enableContinuousInput(0, 1);
